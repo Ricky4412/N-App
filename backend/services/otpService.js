@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator');
 const OTP = require('../models/OTP');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const {
   EMAIL_SERVICE,
