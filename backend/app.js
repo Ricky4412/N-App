@@ -18,7 +18,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: 'https://app-frontend-henna.vercel.app/',
+  origin: 'https://app-frontend-henna.vercel.app',
   methods: 'GET,POST,PUT,DELETE', 
   credentials: true, 
   optionsSuccessStatus: 200,
