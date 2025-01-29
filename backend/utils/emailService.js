@@ -25,6 +25,7 @@ const sendEmail = async (to, subject, text) => {
     console.log('Email sent');
   } catch (error) {
     console.error('Error sending email:', error);
+    throw new Error('Email sending failed');
   }
 };
 
