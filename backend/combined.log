@@ -1,0 +1,604 @@
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-10T22:49:22.965Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-10T22:49:23.114Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-10T22:49:23.117Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-10T23:08:11.624Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-10T23:08:15.099Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-10T23:08:15.101Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-10T23:09:16.787Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-10T23:09:30.734Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T00:19:29.341Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T00:19:29.437Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T00:19:29.440Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T00:39:25.945Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T00:39:36.254Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T00:41:08.620Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T00:47:44.262Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T00:47:45.115Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T01:27:05.839Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T01:27:10.098Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T01:29:15.349Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T01:34:08.239Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T01:36:10.057Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T01:37:32.863Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T02:16:35.857Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T02:16:35.948Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T02:20:37.017Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T02:36:06.767Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T02:36:06.888Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T02:36:06.901Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T02:36:49.729Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T02:36:55.093Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T02:37:10.711Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T02:56:20.681Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T02:56:21.095Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T03:03:28.704Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T03:03:32.091Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T03:04:31.057Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T03:04:38.641Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T03:09:30.236Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T03:09:34.100Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T03:45:30.457Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T03:45:36.096Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T03:46:17.492Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T03:46:19.100Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T04:19:19.642Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T04:19:22.091Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T04:27:24.570Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T04:27:24.653Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T04:29:25.282Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T04:44:37.071Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T04:45:35.041Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T04:45:35.047Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-11T04:45:35.050Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T16:10:07.571Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T16:22:47.260Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T16:25:24.192Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T16:41:02.549Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T16:41:05.850Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T17:07:14.178Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T17:07:14.394Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T17:09:40.746Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T19:11:12.816Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T19:11:12.888Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-11T19:11:12.890Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-11T21:18:26.751Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T12:51:14.283Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T13:45:21.021Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T13:53:20.953Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T14:03:10.073Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T14:03:10.216Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T14:18:53.124Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T14:18:58.637Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T14:31:07.351Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T14:47:51.967Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T15:02:26.435Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T15:02:32.021Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T15:02:50.324Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T15:02:50.584Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T15:35:34.137Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T15:39:27.608Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T16:10:43.500Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T16:10:46.633Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T16:42:44.689Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T17:18:48.036Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:18:50.637Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:18:50.641Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:25:51.224Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:25:51.235Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:25:52.620Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:25:52.622Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:26:07.631Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:26:07.638Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:26:36.895Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:26:37.611Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:26:42.461Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:26:42.464Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:26:49.244Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:26:49.247Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:26:55.409Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:26:55.412Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:29:15.841Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:29:15.850Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:29:20.568Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:29:20.572Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:29:33.608Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:29:33.621Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:29:38.835Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:29:38.836Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:29:40.654Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T17:29:41.605Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T17:29:45.602Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T18:34:34.767Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:06:12.509Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:06:12.990Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T20:09:32.662Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T20:09:32.664Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:09:49.835Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:09:49.904Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T20:20:00.157Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:20:03.018Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:20:03.020Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T20:39:29.563Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T20:39:29.566Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:56:12.050Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T20:56:12.065Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T21:11:00.494Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T21:11:06.008Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T21:12:11.883Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T22:05:04.257Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T22:05:07.019Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T22:05:07.022Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-13T22:14:25.205Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T22:34:55.280Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-13T22:34:56.013Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-13T23:05:23.489Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T02:43:20.243Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T02:44:52.906Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T08:44:07.706Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T08:47:34.868Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T09:43:52.657Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T09:44:37.621Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T09:45:08.017Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T09:59:25.070Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T09:59:25.075Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T09:59:28.039Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T09:59:28.049Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T10:01:51.581Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T10:05:01.805Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T10:05:19.351Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T10:17:05.120Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T10:36:46.487Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T10:36:46.496Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T10:36:47.716Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T10:36:48.709Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T10:36:48.711Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T10:45:32.904Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T12:59:31.424Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T12:59:31.533Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T12:59:31.543Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:00:39.622Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T13:10:55.638Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:10:55.723Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:10:56.715Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:10:57.728Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T13:57:12.870Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:57:13.011Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:57:13.723Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T13:57:13.726Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T13:59:59.921Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:00:00.726Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:00:00.729Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:00:01.720Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T14:03:05.893Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:03:05.996Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:03:06.716Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:03:07.722Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T14:17:22.686Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:17:22.753Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:17:22.756Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:17:22.759Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T14:18:06.570Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:18:06.760Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:18:07.714Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:18:07.717Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T14:31:38.647Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:31:38.729Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:31:38.733Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:31:38.738Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T14:32:31.347Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:32:44.141Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T14:45:17.564Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:45:17.607Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:45:17.610Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T14:45:17.619Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T15:10:17.833Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:10:18.003Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:10:18.726Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:10:18.730Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:34:14.181Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:35:13.711Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:35:13.727Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:35:43.290Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:35:43.301Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:35:43.305Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:42:00.921Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:42:09.407Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:42:09.408Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:42:09.701Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:42:09.703Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T15:42:09.705Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:47:47.991Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T15:48:01.386Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T16:00:33.990Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-14T16:01:05.623Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T16:01:05.659Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T16:01:05.662Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-14T16:01:39.685Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-14T16:01:51.871Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T10:55:00.376Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T12:45:06.447Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T13:10:24.543Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T13:32:54.832Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T13:45:23.754Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T13:58:19.771Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T14:16:51.360Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T14:33:50.014Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T14:45:35.591Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T15:00:05.857Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T15:03:57.492Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T15:03:57.581Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T15:07:10.443Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T15:07:14.580Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T15:20:45.909Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T15:20:46.080Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T15:45:51.074Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T19:27:25.653Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T19:44:58.624Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T20:06:41.015Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T20:43:09.785Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T20:45:29.998Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T21:11:21.630Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T22:29:52.195Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-15T22:30:55.034Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T22:37:54.723Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T22:42:49.836Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-15T22:43:29.735Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T22:43:30.272Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-15T23:20:22.770Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-15T23:20:24.399Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T00:18:36.294Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-16T00:18:37.388Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-16T00:23:11.250Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T00:42:15.427Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T00:48:13.852Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T01:09:16.345Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T01:16:20.089Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T01:56:22.049Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T01:57:50.000Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T02:05:29.599Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T02:13:55.425Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T02:24:42.259Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T02:32:46.709Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T03:42:18.009Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T03:44:18.458Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T09:54:55.340Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T10:00:58.735Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T12:43:02.128Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T15:23:35.950Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T15:53:21.541Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T16:53:32.310Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T17:25:22.213Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-16T17:34:56.901Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T01:16:13.365Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T01:17:50.749Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T01:39:43.768Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T02:54:45.111Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T03:04:27.099Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T03:29:38.513Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T04:03:17.745Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:03:21.995Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:04:01.868Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T04:05:19.360Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:05:19.669Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T04:13:04.923Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:13:11.175Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T04:13:39.670Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:13:39.984Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T04:26:58.104Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:27:03.349Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:36:02.844Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T04:55:29.675Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:55:31.965Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:55:31.967Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:55:33.955Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T04:56:06.650Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T04:56:07.859Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T04:56:16.668Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T05:01:45.056Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T05:01:45.058Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T09:57:31.810Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T10:03:26.323Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T10:06:22.568Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T10:07:28.060Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T10:07:30.275Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T10:33:06.718Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T10:33:09.860Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T10:33:53.421Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T11:35:45.310Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T11:35:45.392Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T11:35:45.397Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T11:36:39.900Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T11:37:24.863Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T11:38:32.353Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T11:43:09.279Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T11:43:10.112Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T12:13:55.572Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:13:55.640Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:13:55.847Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:13:56.849Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:14:52.238Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T12:15:47.189Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T12:29:00.207Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T12:29:57.476Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T12:29:58.728Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T12:30:20.078Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:32:32.976Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T12:44:23.047Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:44:23.119Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T12:45:48.240Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T12:45:52.731Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T13:05:55.534Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T13:05:57.856Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T13:13:16.880Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T13:13:25.708Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T13:13:30.149Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T13:33:05.641Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T13:33:05.701Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T13:33:05.710Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T13:37:34.853Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T13:37:35.505Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T13:37:43.681Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-17T13:39:51.622Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T15:53:20.628Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T15:58:19.135Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T16:23:46.946Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T16:23:47.117Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-17T17:25:26.903Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-17T17:25:26.943Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T00:34:45.018Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T00:35:30.340Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T00:57:45.652Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T00:57:49.587Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-18T01:01:46.038Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T01:01:55.124Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T01:42:35.513Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T01:42:37.596Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T02:11:09.836Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T02:11:11.568Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T05:01:34.335Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T05:01:39.601Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T23:08:37.276Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-18T23:48:49.098Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-18T23:52:28.978Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T00:05:16.900Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T00:05:20.194Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T00:06:26.532Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T00:06:31.184Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T00:10:19.698Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T00:10:21.271Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T00:10:58.295Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T00:10:58.628Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T01:01:22.121Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:01:22.211Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T01:09:57.502Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:10:08.159Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T01:21:49.680Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:21:51.462Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T01:26:58.333Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:26:58.513Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T01:27:24.812Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:27:35.500Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T01:47:00.520Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:47:01.184Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T01:47:29.280Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:47:38.668Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T01:50:15.717Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:50:16.215Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:50:56.285Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T01:51:11.813Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T01:54:43.793Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:54:44.195Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T01:55:18.384Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T01:55:26.202Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T02:06:03.848Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T02:06:08.212Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T02:06:26.600Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T02:06:38.333Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T02:07:55.471Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T02:08:10.646Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T02:16:32.624Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T02:16:32.704Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T02:16:57.198Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T02:17:09.515Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T03:43:46.254Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T03:43:47.222Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T03:44:21.142Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T03:44:32.758Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T03:45:06.142Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T03:45:06.454Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T03:48:14.668Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T03:48:15.198Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T03:48:42.143Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T03:48:52.217Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T04:07:06.308Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:07:07.181Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T04:15:11.549Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:15:17.188Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T04:22:24.919Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:22:32.075Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T04:28:06.925Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:28:07.022Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T04:29:13.244Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:29:19.977Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T04:32:05.279Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:32:09.192Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T04:32:48.986Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T04:32:53.184Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T05:20:33.818Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T05:20:34.185Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T05:25:04.819Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T05:25:07.097Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T05:35:20.132Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T05:35:20.548Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T05:39:40.745Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T15:07:25.746Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T16:05:15.886Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T16:27:19.106Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T16:39:47.654Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T18:05:32.343Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:05:33.983Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T18:06:47.833Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:06:48.661Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T18:11:06.944Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:26:08.900Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T18:50:41.724Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:50:42.172Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T18:52:19.166Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:52:19.261Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T18:52:56.049Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:53:23.832Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T18:58:16.453Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:58:32.728Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T18:58:41.569Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T18:58:41.859Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:04:39.678Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:04:42.856Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:09:44.795Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:09:56.718Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:14:14.286Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:15:51.703Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:16:12.119Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:34:37.261Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:34:40.470Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:34:48.506Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:35:31.412Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:39:06.530Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:39:08.491Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:39:08.811Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:39:45.699Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:39:50.662Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:39:50.954Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:42:21.535Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T19:44:09.570Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:44:12.473Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T19:44:14.047Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T20:42:58.122Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T20:42:58.128Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:40:06.543Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:40:07.180Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T21:40:09.769Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T21:40:09.771Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:41:18.654Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:41:18.658Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T21:41:21.375Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-19T21:41:21.377Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:43:50.227Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:43:50.228Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-19T21:58:49.240Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:58:53.179Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-19T21:58:54.167Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T01:13:24.556Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T01:13:29.861Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T01:13:59.459Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T01:13:59.798Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T01:14:11.823Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T01:20:25.157Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T01:20:25.576Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T02:28:00.633Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-20T14:52:06.225Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T14:56:15.489Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-20T14:57:47.709Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T14:57:47.964Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T14:58:26.092Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T14:58:30.081Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T14:59:15.086Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T14:59:17.840Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T15:00:27.726Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-20T15:00:51.963Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-20T15:01:12.168Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-21T01:04:54.725Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-21T01:06:02.328Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-21T01:08:05.029Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-21T01:08:20.666Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-21T01:08:55.181Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T01:11:10.549Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T01:11:10.747Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T01:40:53.914Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T01:40:53.992Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T01:56:13.216Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-23T02:30:45.259Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T02:30:53.748Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T03:07:28.778Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T03:07:30.736Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T03:07:30.738Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T03:09:33.373Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T03:09:33.519Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T03:09:33.522Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-23T03:29:20.159Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T03:29:24.449Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T04:29:40.535Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T04:29:40.619Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T04:29:43.720Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T05:48:49.978Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T05:48:50.077Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T05:48:50.082Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-23T05:52:21.619Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T09:32:33.309Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T09:34:19.758Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T10:08:06.376Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T10:58:48.798Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T10:58:48.849Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:01:47.278Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:21:41.122Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:21:45.321Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:21:45.325Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:23:15.715Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:23:21.301Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:23:21.305Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:28:56.309Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:28:56.559Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:28:56.568Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:35:50.116Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:35:51.307Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:35:51.310Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:39:40.440Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:39:40.549Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:39:40.556Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:41:04.073Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:41:04.288Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T11:41:04.291Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:46:28.198Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:48:32.675Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:52:46.524Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T11:56:36.145Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T20:56:09.864Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T21:57:54.239Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-23T21:58:43.618Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-23T22:13:33.670Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-23T23:59:23.889Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T00:02:04.491Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T00:15:48.700Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T00:32:28.866Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T01:38:00.395Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T01:41:45.840Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T02:53:29.480Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T02:57:21.303Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T02:58:06.224Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T02:58:34.214Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T03:54:05.492Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T03:54:29.488Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T03:54:32.119Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T03:55:24.461Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T10:12:03.941Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T10:14:20.158Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T10:28:23.945Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T10:28:47.267Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T10:29:50.660Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T10:29:53.951Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T10:30:22.267Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T10:30:32.737Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T10:30:49.839Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T11:09:48.446Z"}
+{"level":"info","message":"New client connected","timestamp":"2025-01-24T11:09:48.475Z"}
+{"level":"info","message":"Client disconnected","timestamp":"2025-01-24T12:12:53.974Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T13:15:52.730Z"}
+{"level":"info","message":"Server running on port 5005","timestamp":"2025-01-24T14:46:27.497Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T14:50:44.283Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-24T14:51:46.396Z"}
+{"level":"info","message":"Server running on port 5005","timestamp":"2025-01-24T15:11:47.490Z"}
+{"level":"info","message":"Server running on port 500","timestamp":"2025-01-24T15:13:18.900Z"}
+{"level":"info","message":"Server running on port 500","timestamp":"2025-01-24T15:42:17.353Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-25T19:41:19.693Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-25T19:44:12.915Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-25T19:47:59.847Z"}
+{"level":"info","message":"Server running on port 5000","timestamp":"2025-01-25T19:59:32.237Z"}
