@@ -18,9 +18,9 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: https://app-frontend-5bs4.vercel.app/', // Ensure this is correct
-  methods: 'GET,POST,PUT,DELETE', // Allow necessary HTTP methods
-  credentials: true, // Allow cookies if using session-based auth
+  origin: 'https://app-frontend-5bs4.vercel.app/',
+  methods: 'GET,POST,PUT,DELETE', 
+  credentials: true, 
   optionsSuccessStatus: 200,
 }));
 
