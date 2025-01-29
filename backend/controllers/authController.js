@@ -207,5 +207,5 @@ module.exports = {
   verifyOtpCode,
   verifyEmail,
   updateProfile,
-  getUserRole, // Add getUserRole to exports
+  getUserRole,
 };
