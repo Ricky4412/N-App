@@ -1,6 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const User = require('../models/User');
-const ActivityLog = require('../models/ActivityLog'); // Updated to use ActivityLog
+const ActivityLog = require('../models/ActivityLog');
 
 // @desc    Get user profile
 // @route   GET /api/users/profile
