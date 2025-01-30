@@ -18,7 +18,7 @@ connectDB();
 const app = express();
 
 app.use(cors({
-  origin: 'https://app-frontend-git-main-enricos-projects-bf5d6f99.vercel.app',
+  origin: 'https://app-frontend-five-dun.vercel.app',
   methods: 'GET,POST,PUT,DELETE',
   credentials: true,
   optionsSuccessStatus: 200,
