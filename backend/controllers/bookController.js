@@ -59,7 +59,7 @@ const addBook = asyncHandler(async (req, res) => {
     coverImage,
     description,
     rating,
-    htmlUrl, // Change from pdf to htmlUrl
+    htmlUrl,
   });
 
   try {
@@ -122,7 +122,7 @@ const updateBook = asyncHandler(async (req, res) => {
       book.coverImage = coverImage || book.coverImage;
       book.description = description || book.description;
       book.rating = rating || book.rating;
-      book.htmlUrl = htmlUrl || book.htmlUrl; // Change from pdf to htmlUrl
+      book.htmlUrl = htmlUrl || book.htmlUrl;
 
       const updatedBook = await book.save();
       res.json(updatedBook);
