@@ -6,7 +6,7 @@ const bookSchema = new mongoose.Schema({
   description: { type: String, required: true },
   rating: { type: Number, default: 4.7 },
   coverImage: { type: String, required: true },
-  htmlUrl: { type: String, required: true }, // Change from pdf to htmlUrl
+  htmlUrl: { type: String, required: true },
 });
 
 const Book = mongoose.model('Book', bookSchema);
