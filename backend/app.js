@@ -19,8 +19,8 @@ const app = express();
 
 app.use(cors({
   origin: 'https://app-frontend-five-dun.vercel.app',
-  methods: 'GET,POST,PUT,DELETE', 
-  credentials: true, 
+  methods: 'GET,POST,PUT,DELETE',
+  credentials: true,
   optionsSuccessStatus: 200,
 }));
 
