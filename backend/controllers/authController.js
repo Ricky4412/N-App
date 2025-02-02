@@ -188,7 +188,7 @@ const updateProfile = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get user role
-// @route   GET /api/auth/role/:id
+// @route   GET /api/auth/user-role/:id
 // @access  Private
 const getUserRole = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
