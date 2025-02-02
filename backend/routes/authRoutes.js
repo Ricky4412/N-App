@@ -8,6 +8,8 @@ const {
   verifyEmail,
   updateProfile,
   getUserRole,
+  requestPasswordReset,
+  resetPassword,
 } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
@@ -52,5 +54,9 @@ router.put('/profile', protect, updateProfile);
 
 // Get user role route
 router.get('/user-role/:id', getUserRole);
+
+// Password reset routes
+router.post('/request-reset', requestPasswordReset);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
