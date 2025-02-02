@@ -3,16 +3,22 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
+const hpp = require('hpp');
 const connectDB = require('./config/db');
 const { errorHandler } = require('./middleware/errorMiddleware');
 
 dotenv.config();
 
 // Ensure all required environment variables are set
-if (!process.env.PORT || !process.env.FRONTEND_URL || !process.env.MONGO_URI || !process.env.JWT_SECRET) {
-  console.error('Missing required environment variables.');
-  process.exit(1);
-}
+const requiredEnvVars = ['PORT', 'FRONTEND_URL', 'MONGO_URI', 'JWT_SECRET'];
+requiredEnvVars.forEach((varName) => {
+  if (!process.env[varName]) {
+    console.error(`Missing required environment variable: ${varName}`);
+    process.exit(1);
+  }
+});
 
 // Connect to the database
 connectDB();
@@ -29,6 +35,15 @@ app.use(cors({
 
 // Set up security headers
 app.use(helmet());
+
+// Sanitize data
+app.use(mongoSanitize());
+
+// Prevent XSS attacks
+app.use(xss());
+
+// Prevent HTTP parameter pollution
+app.use(hpp());
 
 // Parse JSON requests
 app.use(express.json());
