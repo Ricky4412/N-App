@@ -5,7 +5,10 @@ const app = require('./app');
 
 const PORT = process.env.PORT || 5000;
 
+// Create HTTP server
 const server = http.createServer(app);
+
+// Initialize Socket.IO
 const io = socketIo(server, {
   cors: {
     origin: process.env.FRONTEND_URL,
@@ -14,6 +17,7 @@ const io = socketIo(server, {
   },
 });
 
+// Configure Winston logger
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
@@ -27,6 +31,7 @@ const logger = winston.createLogger({
   ],
 });
 
+// Handle new client connections
 io.on('connection', (socket) => {
   logger.info('New client connected');
 
@@ -44,6 +49,32 @@ io.on('connection', (socket) => {
   });
 });
 
+// Start the server
 server.listen(PORT, () => {
   logger.info(`Server running on port ${PORT}`);
 });
+
+// Error handling for server listening
+server.on('error', (err) => {
+  logger.error('Server error', { err });
+  process.exit(1);
+});
+
+// Graceful shutdown
+const gracefulShutdown = () => {
+  logger.info('Shutting down gracefully...');
+  server.close(() => {
+    logger.info('Closed out remaining connections.');
+    process.exit(0);
+  });
+
+  // Force shutdown after 10 seconds
+  setTimeout(() => {
+    logger.error('Could not close connections in time, forcefully shutting down');
+    process.exit(1);
+  }, 10000);
+};
+
+// Handle termination signals
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
