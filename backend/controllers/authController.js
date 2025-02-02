@@ -200,6 +200,62 @@ const getUserRole = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Request password reset
+// @route   POST /api/auth/request-reset
+// @access  Public
+const requestPasswordReset = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404).json({ message: 'User not found' });
+    return;
+  }
+
+  const resetToken = user.generateVerificationToken('1h');
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
+
+  try {
+    await sendEmail(user.email, 'Password Reset Request', message);
+    res.status(200).json({ message: 'Reset link sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Error sending email' });
+  }
+});
+
+// @desc    Reset user password
+// @route   POST /api/auth/reset-password
+// @access  Public
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token, password } = req.body;
+
+  if (!token || !password) {
+    res.status(400).json({ message: 'Invalid token or password' });
+    return;
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
+
+    user.password = password;
+    await user.save();
+
+    res.status(200).json({ message: 'Password has been updated' });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(400).json({ message: 'Invalid token' });
+  }
+});
+
 module.exports = {
   authUser,
   registerUser,
@@ -208,4 +264,6 @@ module.exports = {
   verifyEmail,
   updateProfile,
   getUserRole,
+  requestPasswordReset,
+  resetPassword,
 };
