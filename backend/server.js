@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: 'https://app-frontend-five-dun.vercel.app',
+    origin: process.env.FRONTEND_URL,
     methods: ['GET', 'POST'],
     credentials: true,
   },
