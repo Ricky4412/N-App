@@ -48,6 +48,9 @@ app.use(hpp());
 // Parse JSON requests
 app.use(express.json());
 
+// Configure Express to trust proxy headers
+app.set('trust proxy', true);
+
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
