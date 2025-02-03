@@ -55,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const otp = await generateOtp(user._id);
     await sendOtp(user.email, otp);
 
-    const verificationToken = user.generateVerificationToken();
+    const verificationToken = generateToken(user._id, '1h');
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
     await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
     await sendEmail(user.email, 'Email Verification', `Please verify your email by clicking on the following link: ${verificationUrl}`);
