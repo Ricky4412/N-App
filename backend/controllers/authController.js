@@ -48,17 +48,13 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     phoneNumber: telephone,
-    role: 'client', // Ensure the role is set to 'client' for all new users
+    role: 'client',
   });
 
   if (user) {
-    // Generate OTP
-    const otp = await generateOtp(user._id); // Pass userId to generateOtp function
-
-    // Send OTP to user's email
+    const otp = await generateOtp(user._id);
     await sendOtp(user.email, otp);
 
-    // Send verification email
     const verificationToken = user.generateVerificationToken();
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
     await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
@@ -213,7 +209,7 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
     return;
   }
 
-  const resetToken = user.generateVerificationToken('1h');
+  const resetToken = generateToken(user._id, '1h');
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
   const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
 
@@ -246,7 +242,7 @@ const resetPassword = asyncHandler(async (req, res) => {
       return;
     }
 
-    user.password = password;
+    user.password = await bcrypt.hash(password, 10);
     await user.save();
 
     res.status(200).json({ message: 'Password has been updated' });
