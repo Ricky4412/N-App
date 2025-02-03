@@ -211,7 +211,7 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
 
   const resetToken = generateToken(user._id, '1h');
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
-  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
+  const message = `You are receiving this email because you have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
 
   try {
     await sendEmail(user.email, 'Password Reset Request', message);
