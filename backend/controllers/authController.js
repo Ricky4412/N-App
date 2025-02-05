@@ -14,7 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       user: {
         _id: user._id,
@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const user = await User.create({
     name,
     email,
-    password,
+    password: await bcrypt.hash(password, 10),
     phoneNumber: telephone,
     role: 'client',
   });
@@ -163,7 +163,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     if (req.body.password) {
-      user.password = req.body.password;
+      user.password = await bcrypt.hash(req.body.password, 10);
     }
 
     const updatedUser = await user.save();
