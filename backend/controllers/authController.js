@@ -43,10 +43,12 @@ const registerUser = asyncHandler(async (req, res) => {
     return;
   }
 
+  const hashedPassword = await bcrypt.hash(password, 10);
+
   const user = await User.create({
     name,
     email,
-    password: await bcrypt.hash(password, 10),
+    password: hashedPassword,
     phoneNumber: telephone,
     role: 'client',
   });
