@@ -22,7 +22,6 @@ const authUser = asyncHandler(async (req, res) => {
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.role,
-        isVerified: user.isVerified,
       },
       token: generateToken(user._id),
     });
@@ -52,7 +51,6 @@ const registerUser = asyncHandler(async (req, res) => {
     password: hashedPassword,
     phoneNumber: telephone,
     role: "client",
-    isVerified: false,
   });
 
   if (user) {
@@ -67,7 +65,6 @@ const registerUser = asyncHandler(async (req, res) => {
         email: user.email,
         phoneNumber: user.phoneNumber,
         role: user.role,
-        isVerified: user.isVerified,
       },
       token: generateToken(user._id),
     });
@@ -76,66 +73,60 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Request password reset
-// @route   POST /api/auth/request-reset
+// @desc    Send OTP to user's email
+// @route   POST /api/auth/send-otp
 // @access  Public
-const requestPasswordReset = asyncHandler(async (req, res) => {
+const sendOtpToEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
+
+  if (!email) {
+    res.status(400).json({ message: "Email is required" });
+    return;
+  }
+
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(404).json({ message: "User not found" });
+    res.status(400).json({ message: "User not found" });
     return;
   }
 
-  const resetToken = crypto.randomBytes(32).toString("hex");
-  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-
-  user.resetPasswordToken = hashedToken;
-  user.resetPasswordExpires = Date.now() + (process.env.RESET_TOKEN_EXPIRY || 15) * 60 * 1000;
-  await user.save();
-
-  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
-  await sendEmail(user.email, "Password Reset Request", `Click here to reset your password: ${resetUrl}`);
-
-  res.status(200).json({ message: "Reset link sent successfully" });
+  const otp = await generateOtp(user._id);
+  await sendOtp(email, otp);
+  res.status(200).json({ message: "OTP sent successfully" });
 });
 
-// @desc    Reset user password
-// @route   POST /api/auth/reset-password
+// @desc    Verify OTP
+// @route   POST /api/auth/verify-otp
 // @access  Public
-const resetPassword = asyncHandler(async (req, res) => {
-  const { token, password } = req.body;
+const verifyOtpCode = asyncHandler(async (req, res) => {
+  const { userId, otp } = req.body;
 
-  if (!token) {
-    res.status(400).json({ message: "Token is required" });
+  if (!userId || !otp) {
+    res.status(400).json({ message: "User ID and OTP are required" });
     return;
   }
 
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-  const user = await User.findOne({
-    resetPasswordToken: hashedToken,
-    resetPasswordExpires: { $gt: Date.now() },
-  });
+  const user = await User.findById(userId);
 
   if (!user) {
-    res.status(400).json({ message: "Invalid or expired token" });
+    res.status(400).json({ message: "User not found" });
     return;
   }
 
-  user.password = await bcrypt.hash(password, 10);
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
-  await user.save();
-
-  res.status(200).json({ message: "Password has been updated successfully" });
+  const isValid = await verifyOtp(user._id, otp);
+  if (isValid) {
+    res.status(200).json({ message: "OTP verified successfully" });
+  } else {
+    res.status(400).json({ message: "Invalid OTP" });
+  }
 });
 
 // @desc    Verify email
-// @route   POST /api/auth/verify-email
+// @route   GET /api/auth/verify-email
 // @access  Public
 const verifyEmail = asyncHandler(async (req, res) => {
-  const { token } = req.body;
+  const { token } = req.query;
 
   if (!token) {
     res.status(400).json({ message: "Invalid token" });
@@ -160,76 +151,108 @@ const verifyEmail = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Change user password
-// @route   PUT /api/auth/change-password
-// @access  Private
-const changePassword = asyncHandler(async (req, res) => {
-  const { oldPassword, newPassword } = req.body;
-  const user = await User.findById(req.user.id);
-
-  if (!user || !(await bcrypt.compare(oldPassword, user.password))) {
-    res.status(401).json({ message: "Incorrect old password" });
-    return;
-  }
-
-  user.password = await bcrypt.hash(newPassword, 10);
-  await user.save();
-
-  res.status(200).json({ message: "Password changed successfully" });
-});
-
-// @desc    Get user profile
-// @route   GET /api/auth/profile
-// @access  Private
-const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
-
-  if (user) {
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      phoneNumber: user.phoneNumber,
-      role: user.role,
-      isVerified: user.isVerified,
-    });
-  } else {
-    res.status(404).json({ message: "User not found" });
-  }
-});
-
 // @desc    Update user profile
 // @route   PUT /api/auth/profile
 // @access  Private
-const updateUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
+const updateProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
 
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+    if (req.body.password) {
+      user.password = await bcrypt.hash(req.body.password, 10);
+    }
 
     const updatedUser = await user.save();
+
     res.json({
-      _id: updatedUser._id,
-      name: updatedUser.name,
-      email: updatedUser.email,
-      phoneNumber: updatedUser.phoneNumber,
-      role: updatedUser.role,
-      isVerified: updatedUser.isVerified,
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phoneNumber: updatedUser.phoneNumber,
+        role: updatedUser.role,
+      },
+      token: generateToken(updatedUser._id),
     });
   } else {
     res.status(404).json({ message: "User not found" });
   }
+});
+
+// @desc    Get user role
+// @route   GET /api/auth/user-role/:id
+// @access  Private
+const getUserRole = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (user) {
+    res.json({ role: user.role });
+  } else {
+    res.status(404).json({ message: "User not found" });
+  }
+});
+
+// @desc    Request password reset
+// @route   POST /api/auth/request-reset
+// @access  Public
+const requestPasswordReset = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(404).json({ message: "User not found" });
+    return;
+  }
+
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+
+  user.resetPasswordToken = hashedToken;
+  user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+  await user.save();
+
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+  await sendEmail(user.email, "Password Reset Request", `Click here to reset your password: ${resetUrl}`);
+
+  res.status(200).json({ message: "Reset link sent successfully" });
+});
+
+// @desc    Reset user password
+// @route   POST /api/auth/reset-password/:token
+// @access  Public
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token } = req.params;
+  const { password } = req.body;
+
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  const user = await User.findOne({
+    resetPasswordToken: hashedToken,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    res.status(400).json({ message: "Invalid or expired token" });
+    return;
+  }
+
+  user.password = await bcrypt.hash(password, 10);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  await user.save();
+
+  res.status(200).json({ message: "Password has been updated successfully" });
 });
 
 module.exports = {
   authUser,
   registerUser,
+  sendOtpToEmail,
+  verifyOtpCode,
+  verifyEmail,
+  updateProfile,
+  getUserRole,
   requestPasswordReset,
   resetPassword,
-  verifyEmail,
-  changePassword,
-  getUserProfile,
-  updateUserProfile,
 };
