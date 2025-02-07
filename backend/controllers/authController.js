@@ -255,6 +255,7 @@ module.exports = {
   updateProfile,
   sendOtpToEmail,
   verifyOtpCode,
+  verifyEmail,
   requestPasswordReset,
   resetPassword,
   getUserRole,
