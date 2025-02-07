@@ -105,7 +105,6 @@ const verifyEmail = asyncHandler(async (req, res) => {
   }
 });
 
-
 // @desc    Update user profile
 // @route   PUT /api/auth/profile
 // @access  Private
