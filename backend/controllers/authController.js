@@ -78,6 +78,34 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Verify user email
+// @route   POST /api/auth/verify-email
+// @access  Public
+const verifyEmail = asyncHandler(async (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(400).json({ message: "Verification token is required" });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.isVerified = true;
+    await user.save();
+
+    res.status(200).json({ message: "Email verified successfully" });
+  } catch (error) {
+    res.status(400).json({ message: "Invalid or expired token" });
+  }
+});
+
+
 // @desc    Update user profile
 // @route   PUT /api/auth/profile
 // @access  Private
