@@ -66,6 +66,6 @@ router.get("/user-role/:id", getUserRole);
 
 // 🔄 Password Reset Routes
 router.post("/request-reset", validateResetRequest, handleValidationErrors, requestPasswordReset);
-router.post("/reset-password/:token", validatePasswordReset, handleValidationErrors, resetPassword);
+router.post("/reset-password", validatePasswordReset, handleValidationErrors, resetPassword);
 
 module.exports = router;
