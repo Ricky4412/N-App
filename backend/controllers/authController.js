@@ -188,48 +188,36 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
     return;
   }
 
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
-  await user.save();
+  const otp = await generateOtp(user._id);
+  await sendOtp(email, otp);
 
-  const resetToken = crypto.randomBytes(32).toString("hex");
-  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-
-  user.resetPasswordToken = hashedToken;
-  user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
-  await user.save();
-
-  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
-  await sendEmail(user.email, "Password Reset Request", `Click here to reset your password: ${resetUrl}`);
-
-  res.status(200).json({ message: "Reset link sent successfully" });
+  res.status(200).json({ message: "OTP sent successfully", userId: user._id });
 });
 
 // @desc    Reset user password
-// @route   POST /api/auth/reset-password/:token
+// @route   POST /api/auth/reset-password
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-  const { token } = req.params;
-  const { password, confirmPassword } = req.body;
+  const { userId, otp, password, confirmPassword } = req.body;
 
   if (!password || password !== confirmPassword) {
     return res.status(400).json({ message: "Passwords do not match" });
   }
 
-  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-  const user = await User.findOne({
-    resetPasswordToken: hashedToken,
-    resetPasswordExpires: { $gt: Date.now() },
-  });
+  const user = await User.findById(userId);
 
   if (!user) {
-    res.status(400).json({ message: "Invalid or expired token" });
+    res.status(400).json({ message: "User not found" });
+    return;
+  }
+
+  const isValid = await verifyOtp(user._id, otp);
+  if (!isValid) {
+    res.status(400).json({ message: "Invalid OTP" });
     return;
   }
 
   user.password = await bcrypt.hash(password, 10);
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
   await user.save();
 
   res.status(200).json({ message: "Password has been updated successfully" });
