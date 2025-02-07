@@ -12,6 +12,7 @@ const { sendEmail } = require("../utils/emailService");
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
@@ -39,6 +40,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, telephone } = req.body;
+
   const userExists = await User.findOne({ $or: [{ email }, { phoneNumber: telephone }] });
 
   if (userExists) {
@@ -47,6 +49,7 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+
   const user = await User.create({
     name,
     email,
@@ -95,9 +98,43 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
     user.isVerified = true;
     await user.save();
+
     res.status(200).json({ message: "Email verified successfully" });
   } catch (error) {
     res.status(400).json({ message: "Invalid or expired token" });
+  }
+});
+
+
+// @desc    Update user profile
+// @route   PUT /api/auth/profile
+// @access  Private
+const updateProfile = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+
+    if (req.body.password) {
+      user.password = await bcrypt.hash(req.body.password, 10);
+    }
+
+    const updatedUser = await user.save();
+
+    res.json({
+      user: {
+        _id: updatedUser._id,
+        name: updatedUser.name,
+        email: updatedUser.email,
+        phoneNumber: updatedUser.phoneNumber,
+        role: updatedUser.role,
+      },
+      token: generateToken(updatedUser._id),
+    });
+  } else {
+    res.status(404).json({ message: "User not found" });
   }
 });
 
@@ -106,10 +143,12 @@ const verifyEmail = asyncHandler(async (req, res) => {
 // @access  Public
 const sendOtpToEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
+
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(400).json({ message: "User not found" });
+    res.status(400).json({ message: "User not found" });
+    return;
   }
 
   const otp = await generateOtp(user._id);
@@ -122,10 +161,12 @@ const sendOtpToEmail = asyncHandler(async (req, res) => {
 // @access  Public
 const verifyOtpCode = asyncHandler(async (req, res) => {
   const { userId, otp } = req.body;
+
   const user = await User.findById(userId);
 
   if (!user) {
-    return res.status(400).json({ message: "User not found" });
+    res.status(400).json({ message: "User not found" });
+    return;
   }
 
   const isValid = await verifyOtp(user._id, otp);
@@ -144,7 +185,8 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    return res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: "User not found" });
+    return;
   }
 
   user.resetPasswordToken = undefined;
@@ -158,24 +200,21 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
   user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
   await user.save();
 
-  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
   await sendEmail(user.email, "Password Reset Request", `Click here to reset your password: ${resetUrl}`);
 
   res.status(200).json({ message: "Reset link sent successfully" });
 });
 
 // @desc    Reset user password
-// @route   POST /api/auth/reset-password
+// @route   POST /api/auth/reset-password/:token
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-  const { token, password, confirmPassword } = req.body;
-
-  if (!token) {
-    return res.status(400).json({ message: "Invalid or missing reset token." });
-  }
+  const { token } = req.params;
+  const { password, confirmPassword } = req.body;
 
   if (!password || password !== confirmPassword) {
-    return res.status(400).json({ message: "Passwords do not match." });
+    return res.status(400).json({ message: "Passwords do not match" });
   }
 
   const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
@@ -185,7 +224,8 @@ const resetPassword = asyncHandler(async (req, res) => {
   });
 
   if (!user) {
-    return res.status(400).json({ message: "Invalid or expired password reset token." });
+    res.status(400).json({ message: "Invalid or expired token" });
+    return;
   }
 
   user.password = await bcrypt.hash(password, 10);
@@ -193,7 +233,7 @@ const resetPassword = asyncHandler(async (req, res) => {
   user.resetPasswordExpires = undefined;
   await user.save();
 
-  res.status(200).json({ message: "Your password has been reset successfully." });
+  res.status(200).json({ message: "Password has been updated successfully" });
 });
 
 // @desc    Get user role
@@ -212,10 +252,10 @@ const getUserRole = asyncHandler(async (req, res) => {
 module.exports = {
   authUser,
   registerUser,
-  verifyEmail,
   updateProfile,
   sendOtpToEmail,
   verifyOtpCode,
+  verifyEmail,
   requestPasswordReset,
   resetPassword,
   getUserRole,
