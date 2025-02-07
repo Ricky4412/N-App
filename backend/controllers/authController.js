@@ -1,17 +1,17 @@
-const asyncHandler = require('express-async-handler');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('../models/User');
-const generateToken = require('../utils/generateToken');
-const { generateOtp, sendOtp, verifyOtp } = require('../services/otpService');
-const { sendEmail } = require('../utils/emailService');
+const asyncHandler = require("express-async-handler");
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+const User = require("../models/User");
+const generateToken = require("../utils/generateToken");
+const { generateOtp, sendOtp, verifyOtp } = require("../services/otpService");
+const { sendEmail } = require("../utils/emailService");
 
 // @desc    Authenticate user & get token
 // @route   POST /api/auth/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
-
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
@@ -26,7 +26,7 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(401).json({ message: 'Invalid email or password' });
+    res.status(401).json({ message: "Invalid email or password" });
   }
 });
 
@@ -39,7 +39,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400).json({ message: 'User already exists' });
+    res.status(400).json({ message: "User already exists" });
     return;
   }
 
@@ -50,17 +50,13 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     phoneNumber: telephone,
-    role: 'client',
+    role: "client",
   });
 
   if (user) {
-    const otp = await generateOtp(user._id);
-    await sendOtp(user.email, otp);
-
-    const verificationToken = generateToken(user._id, '1h');
+    const verificationToken = generateToken(user._id, "1h");
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
-    await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
-    await sendEmail(user.email, 'Email Verification', `Please verify your email by clicking on the following link: ${verificationUrl}`);
+    await sendEmail(user.email, "Email Verification", `Please verify your email: ${verificationUrl}`);
 
     res.status(201).json({
       user: {
@@ -73,7 +69,7 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400).json({ message: 'Invalid user data' });
+    res.status(400).json({ message: "Invalid user data" });
   }
 });
 
@@ -84,20 +80,20 @@ const sendOtpToEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
-    res.status(400).json({ message: 'Email is required' });
+    res.status(400).json({ message: "Email is required" });
     return;
   }
 
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(400).json({ message: 'User not found' });
+    res.status(400).json({ message: "User not found" });
     return;
   }
 
   const otp = await generateOtp(user._id);
   await sendOtp(email, otp);
-  res.status(200).json({ message: 'OTP sent successfully' });
+  res.status(200).json({ message: "OTP sent successfully" });
 });
 
 // @desc    Verify OTP
@@ -107,22 +103,22 @@ const verifyOtpCode = asyncHandler(async (req, res) => {
   const { userId, otp } = req.body;
 
   if (!userId || !otp) {
-    res.status(400).json({ message: 'User ID and OTP are required' });
+    res.status(400).json({ message: "User ID and OTP are required" });
     return;
   }
 
   const user = await User.findById(userId);
 
   if (!user) {
-    res.status(400).json({ message: 'User not found' });
+    res.status(400).json({ message: "User not found" });
     return;
   }
 
   const isValid = await verifyOtp(user._id, otp);
   if (isValid) {
-    res.status(200).json({ message: 'OTP verified successfully' });
+    res.status(200).json({ message: "OTP verified successfully" });
   } else {
-    res.status(400).json({ message: 'Invalid OTP' });
+    res.status(400).json({ message: "Invalid OTP" });
   }
 });
 
@@ -133,7 +129,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.query;
 
   if (!token) {
-    res.status(400).json({ message: 'Invalid token' });
+    res.status(400).json({ message: "Invalid token" });
     return;
   }
 
@@ -142,16 +138,16 @@ const verifyEmail = asyncHandler(async (req, res) => {
     const user = await User.findById(decoded.id);
 
     if (!user) {
-      res.status(404).json({ message: 'User not found' });
+      res.status(404).json({ message: "User not found" });
       return;
     }
 
     user.isVerified = true;
     await user.save();
 
-    res.json({ message: 'Email verified successfully' });
+    res.json({ message: "Email verified successfully" });
   } catch (error) {
-    res.status(400).json({ message: 'Invalid token' });
+    res.status(400).json({ message: "Invalid token" });
   }
 });
 
@@ -181,7 +177,7 @@ const updateProfile = asyncHandler(async (req, res) => {
       token: generateToken(updatedUser._id),
     });
   } else {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: "User not found" });
   }
 });
 
@@ -194,7 +190,7 @@ const getUserRole = asyncHandler(async (req, res) => {
   if (user) {
     res.json({ role: user.role });
   } else {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: "User not found" });
   }
 });
 
@@ -203,55 +199,50 @@ const getUserRole = asyncHandler(async (req, res) => {
 // @access  Public
 const requestPasswordReset = asyncHandler(async (req, res) => {
   const { email } = req.body;
-
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(404).json({ message: 'User not found' });
+    res.status(404).json({ message: "User not found" });
     return;
   }
 
-  const resetToken = generateToken(user._id, '1h');
-  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
-  const message = `You are receiving this email because you have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
 
-  try {
-    await sendEmail(user.email, 'Password Reset Request', message);
-    res.status(200).json({ message: 'Reset link sent successfully' });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ message: 'Error sending email' });
-  }
+  user.resetPasswordToken = hashedToken;
+  user.resetPasswordExpires = Date.now() + 15 * 60 * 1000;
+  await user.save();
+
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password/${resetToken}`;
+  await sendEmail(user.email, "Password Reset Request", `Click here to reset your password: ${resetUrl}`);
+
+  res.status(200).json({ message: "Reset link sent successfully" });
 });
 
 // @desc    Reset user password
-// @route   POST /api/auth/reset-password
+// @route   POST /api/auth/reset-password/:token
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-  const { token, password } = req.body;
+  const { token } = req.params;
+  const { password } = req.body;
 
-  if (!token || !password) {
-    res.status(400).json({ message: 'Invalid token or password' });
+  const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+  const user = await User.findOne({
+    resetPasswordToken: hashedToken,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    res.status(400).json({ message: "Invalid or expired token" });
     return;
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id);
+  user.password = await bcrypt.hash(password, 10);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  await user.save();
 
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
-      return;
-    }
-
-    user.password = await bcrypt.hash(password, 10);
-    await user.save();
-
-    res.status(200).json({ message: 'Password has been updated' });
-  } catch (error) {
-    console.error('Error resetting password:', error);
-    res.status(400).json({ message: 'Invalid token' });
-  }
+  res.status(200).json({ message: "Password has been updated successfully" });
 });
 
 module.exports = {
