@@ -27,6 +27,12 @@ const validateLogin = [
   check('password').exists().withMessage('Password is required'),
 ];
 
+const validateResetRequest = [check('email').isEmail().withMessage('Valid email is required')];
+
+const validatePasswordReset = [
+  check('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters long'),
+];
+
 // Middleware to handle validation errors
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -52,11 +58,11 @@ router.get('/verify-email', verifyEmail);
 // Update profile route (protected)
 router.put('/profile', protect, updateProfile);
 
-// Get user role route
-router.get('/user-role/:id', getUserRole);
+// Get user role route (protected)
+router.get('/user-role/:id', protect, getUserRole);
 
 // Password reset routes
-router.post('/request-reset', requestPasswordReset);
-router.post('/reset-password', resetPassword);
+router.post('/request-reset', validateResetRequest, handleValidationErrors, requestPasswordReset);
+router.post('/reset-password', validatePasswordReset, handleValidationErrors, resetPassword);
 
 module.exports = router;
