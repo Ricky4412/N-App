@@ -239,8 +239,8 @@ const resetPassword = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  user.password = await bcrypt.hash(password, 10);
-  await user.save();
+ user.isVerified = true;
+    await user.save();
 
   res.status(200).json({ message: 'Password has been updated successfully' });
 });
