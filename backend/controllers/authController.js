@@ -30,9 +30,9 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Register a new user
-// @route POST /api/auth/register
-// @access Public
+// @desc    Register a new user
+// @route   POST /api/auth/register
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, telephone } = req.body;
 
@@ -43,22 +43,25 @@ const registerUser = asyncHandler(async (req, res) => {
     return;
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   const user = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
     phoneNumber: telephone,
-    role: 'client',
+    role: 'client', // Ensure the role is set to 'client' for all new users
   });
 
   if (user) {
-    const otp = await generateOtp(user._id);
+    // Generate OTP
+    const otp = await generateOtp(user._id); // Pass userId to generateOtp function
+
+    // Send OTP to user's email
     await sendOtp(user.email, otp);
 
-    const verificationToken = generateToken(user._id, '1h');
+    // Send verification email
+    const verificationToken = user.generateVerificationToken();
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
+    await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
     await sendEmail(user.email, 'Email Verification', `Please verify your email by clicking on the following link: ${verificationUrl}`);
 
     res.status(201).json({
@@ -76,9 +79,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Send OTP to user's email
-// @route POST /api/auth/send-otp
-// @access Public
+// @desc    Send OTP to user's email
+// @route   POST /api/auth/send-otp
+// @access  Public
 const sendOtpToEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -99,9 +102,9 @@ const sendOtpToEmail = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'OTP sent successfully' });
 });
 
-// @desc Verify OTP
-// @route POST /api/auth/verify-otp
-// @access Public
+// @desc    Verify OTP
+// @route   POST /api/auth/verify-otp
+// @access  Public
 const verifyOtpCode = asyncHandler(async (req, res) => {
   const { userId, otp } = req.body;
 
@@ -125,9 +128,9 @@ const verifyOtpCode = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Verify email
-// @route GET /api/auth/verify-email
-// @access Public
+// @desc    Verify email
+// @route   GET /api/auth/verify-email
+// @access  Public
 const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.query;
 
@@ -154,19 +157,17 @@ const verifyEmail = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Update user profile
-// @route PUT /api/auth/profile
-// @access Private
+// @desc    Update user profile
+// @route   PUT /api/auth/profile
+// @access  Private
 const updateProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
-
     if (req.body.password) {
-      user.password = await bcrypt.hash(req.body.password, 10);
+      user.password = req.body.password;
     }
 
     const updatedUser = await user.save();
@@ -186,9 +187,9 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Get user role
-// @route GET /api/auth/role/:id
-// @access Private
+// @desc    Get user role
+// @route   GET /api/auth/role/:id
+// @access  Private
 const getUserRole = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
