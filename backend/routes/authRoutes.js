@@ -63,7 +63,7 @@ router.put('/profile', protect, updateProfile);
 router.get('/user-role/:id', protect, getUserRole);
 
 // Password reset routes
-router.post('/request-reset', validateResetRequest, handleValidationErrors, requestPasswordReset);
-router.post('/reset-password', validatePasswordReset, handleValidationErrors, resetPassword);
+router.post('/request-reset', validateResetRequest,  requestPasswordReset);
+router.post('/reset-password', validatePasswordReset, resetPassword);
 
 module.exports = router;
