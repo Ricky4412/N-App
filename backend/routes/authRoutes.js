@@ -12,7 +12,6 @@ const {
   resetPassword,
 } = require('../controllers/authController');
 const { protect } = require('../middleware/authMiddleware');
-
 const router = express.Router();
 
 // Validation rules
@@ -26,12 +25,6 @@ const validateRegister = [
 const validateLogin = [
   check('email').isEmail().withMessage('Invalid email'),
   check('password').exists().withMessage('Password is required'),
-];
-
-const validateResetRequest = [check('email').isEmail().withMessage('Valid email is required')];
-
-const validatePasswordReset = [
-  check('password').isLength({ min: 8 }).withMessage('Password must be at least 8 characters long'),
 ];
 
 // Middleware to handle validation errors
@@ -59,11 +52,11 @@ router.get('/verify-email', verifyEmail);
 // Update profile route (protected)
 router.put('/profile', protect, updateProfile);
 
-// Get user role route (protected)
-router.get('/user-role/:id', protect, getUserRole);
+// Get user role route
+router.get('/user-role/:id', getUserRole);
 
 // Password reset routes
-router.post('/request-reset', validateResetRequest,  requestPasswordReset);
-router.post('/reset-password', validatePasswordReset, resetPassword);
+router.post('/request-reset', requestPasswordReset);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
