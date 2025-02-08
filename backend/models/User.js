@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Subscription',
   },
-  isVerified: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: true },
 });
 
 // Instance method to generate a verification token
