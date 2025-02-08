@@ -36,32 +36,29 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, telephone } = req.body;
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ $or: [{ email }, { phoneNumber: telephone }] });
 
   if (userExists) {
-    res.status(400).json({ message: 'User already exists' });
+    res.status(400).json({ message: 'User with this email or phone number already exists' });
     return;
   }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
     name,
     email,
-    password,
+    password: hashedPassword,
     phoneNumber: telephone,
-    role: 'client', // Ensure the role is set to 'client' for all new users
+    role: 'client',
   });
 
   if (user) {
-    // Generate OTP
-    const otp = await generateOtp(user._id); // Pass userId to generateOtp function
-
-    // Send OTP to user's email
+    const otp = await generateOtp(user._id);
     await sendOtp(user.email, otp);
 
-    // Send verification email
-    const verificationToken = user.generateVerificationToken();
+    const verificationToken = generateToken(user._id, '1h');
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
-    await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
     await sendEmail(user.email, 'Email Verification', `Please verify your email by clicking on the following link: ${verificationUrl}`);
 
     res.status(201).json({
@@ -84,11 +81,6 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access  Public
 const sendOtpToEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
-
-  if (!email) {
-    res.status(400).json({ message: 'Email is required' });
-    return;
-  }
 
   const user = await User.findOne({ email });
 
@@ -113,14 +105,7 @@ const verifyOtpCode = asyncHandler(async (req, res) => {
     return;
   }
 
-  const user = await User.findById(userId);
-
-  if (!user) {
-    res.status(400).json({ message: 'User not found' });
-    return;
-  }
-
-  const isValid = await verifyOtp(user._id, otp);
+  const isValid = await verifyOtp(userId, otp);
   if (isValid) {
     res.status(200).json({ message: 'OTP verified successfully' });
   } else {
@@ -166,8 +151,10 @@ const updateProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
+    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+
     if (req.body.password) {
-      user.password = req.body.password;
+      user.password = await bcrypt.hash(req.body.password, 10);
     }
 
     const updatedUser = await user.save();
@@ -213,47 +200,35 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
     return;
   }
 
-  const resetToken = user.generateVerificationToken('1h');
-  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
-  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
-
-  try {
-    await sendEmail(user.email, 'Password Reset Request', message);
-    res.status(200).json({ message: 'Reset link sent successfully' });
-  } catch (error) {
-    console.error('Error sending email:', error);
-    res.status(500).json({ message: 'Error sending email' });
-  }
+  const otp = await generateOtp(user._id);
+  await sendOtp(email, otp);
+  res.status(200).json({ message: 'OTP sent successfully', userId: user._id });
 });
 
 // @desc    Reset user password
 // @route   POST /api/auth/reset-password
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-  const { token, password } = req.body;
+  const { userId, otp, password, confirmPassword } = req.body;
 
-  if (!token || !password) {
-    res.status(400).json({ message: 'Invalid token or password' });
-    return;
+  if (!password || password !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findById(decoded.id);
-
-    if (!user) {
-      res.status(404).json({ message: 'User not found' });
-      return;
-    }
-
-    user.password = password;
-    await user.save();
-
-    res.status(200).json({ message: 'Password has been updated' });
-  } catch (error) {
-    console.error('Error resetting password:', error);
-    res.status(400).json({ message: 'Invalid token' });
+  const isValid = await verifyOtp(userId, otp);
+  if (!isValid) {
+    return res.status(400).json({ message: 'Invalid OTP' });
   }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  user.password = await bcrypt.hash(password, 10);
+  await user.save();
+
+  res.status(200).json({ message: 'Password has been updated successfully' });
 });
 
 module.exports = {
