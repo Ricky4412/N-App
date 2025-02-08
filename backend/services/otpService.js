@@ -1,4 +1,3 @@
-// otpService.js
 const mongoose = require('mongoose');
 const nodemailer = require('nodemailer');
 const otpGenerator = require('otp-generator');
