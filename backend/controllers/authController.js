@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/User');
 const generateToken = require('../utils/generateToken');
@@ -50,20 +49,16 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     phoneNumber: telephone,
-    role: 'client', // Ensure the role is set to 'client' for all new users
+    role: 'client',
   });
 
   if (user) {
-    // Generate OTP
-    const otp = await generateOtp(user._id); // Pass userId to generateOtp function
-
-    // Send OTP to user's email
+    const otp = await generateOtp(user._id);
     await sendOtp(user.email, otp);
 
-    // Send verification email
     const verificationToken = user.generateVerificationToken();
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
-    await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
+    await sendEmail(user.email, 'Thank you for registering!', 'JEM Book Library Software');
     await sendEmail(user.email, 'Email Verification', `Please verify your email by clicking on the following link: ${verificationUrl}`);
 
     res.status(201).json({
@@ -169,7 +164,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     if (req.body.password) {
-      user.password = await bcrypt.hash(req.body.password, 10); // Ensure password is hashed before saving
+      user.password = await bcrypt.hash(req.body.password, 10);
     }
 
     const updatedUser = await user.save();
@@ -241,7 +236,7 @@ const resetPassword = asyncHandler(async (req, res) => {
     return res.status(404).json({ message: 'User not found' });
   }
 
-  user.password = await bcrypt.hash(password, 10); // Ensure password is hashed before saving
+  user.password = await bcrypt.hash(password, 10);
   await user.save();
 
   res.status(200).json({ message: 'Password has been updated successfully' });
