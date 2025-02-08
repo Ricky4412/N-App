@@ -14,7 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await user.matchPassword(password))) {
+  if (user && (await bcrypt.compare(password, user.password))) {
     res.json({
       user: {
         _id: user._id,
@@ -50,12 +50,11 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password: hashedPassword,
     phoneNumber: telephone,
-    role: 'client', // Ensure the role is set to 'client' for all new users
+    role: 'client',
   });
 
   if (user) {
-    const otp = await generateOtp(user._id); // Pass userId to generateOtp function
-
+    const otp = await generateOtp(user._id);
     await sendOtp(user.email, otp);
 
     const verificationToken = generateToken(user._id, '1h');
