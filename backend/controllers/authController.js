@@ -1,11 +1,10 @@
 const asyncHandler = require("express-async-handler");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 const User = require("../models/User");
-const generateToken = require("../utils/generateToken");
 const { generateOtp, sendOtp, verifyOtp } = require("../services/otpService");
 const { sendEmail } = require("../utils/emailService");
+const generateToken = require("../utils/generateToken");
 
 // @desc    Authenticate user & get token
 // @route   POST /api/auth/login
@@ -161,14 +160,7 @@ const sendOtpToEmail = asyncHandler(async (req, res) => {
 const verifyOtpCode = asyncHandler(async (req, res) => {
   const { userId, otp } = req.body;
 
-  const user = await User.findById(userId);
-
-  if (!user) {
-    res.status(400).json({ message: "User not found" });
-    return;
-  }
-
-  const isValid = await verifyOtp(user._id, otp);
+  const isValid = await verifyOtp(userId, otp);
   if (isValid) {
     res.status(200).json({ message: "OTP verified successfully" });
   } else {
@@ -204,17 +196,14 @@ const resetPassword = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Passwords do not match" });
   }
 
-  const user = await User.findById(userId);
-
-  if (!user) {
-    res.status(400).json({ message: "User not found" });
-    return;
+  const isValid = await verifyOtp(userId, otp);
+  if (!isValid) {
+    return res.status(400).json({ message: "Invalid OTP" });
   }
 
-  const isValid = await verifyOtp(user._id, otp);
-  if (!isValid) {
-    res.status(400).json({ message: "Invalid OTP" });
-    return;
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
   }
 
   user.password = await bcrypt.hash(password, 10);
