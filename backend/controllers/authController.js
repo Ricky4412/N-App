@@ -6,15 +6,16 @@ const generateToken = require('../utils/generateToken');
 const { generateOtp, sendOtp, verifyOtp } = require('../services/otpService');
 const { sendEmail } = require('../utils/emailService');
 
-// @desc Authenticate user & get token
-// @route POST /api/auth/login
-// @access Public
+
+       // @desc    Authenticate user & get token
+// @route   POST /api/auth/login
+// @access  Public
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
-  if (user && (await bcrypt.compare(password, user.password))) {
+  if (user && (await user.matchPassword(password))) {
     res.json({
       user: {
         _id: user._id,
@@ -29,6 +30,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.status(401).json({ message: 'Invalid email or password' });
   }
 });
+
 
 // @desc Register a new user
 // @route POST /api/auth/register
