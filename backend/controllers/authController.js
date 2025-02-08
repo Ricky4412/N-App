@@ -1,10 +1,10 @@
-const asyncHandler = require("express-async-handler");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
-const User = require("../models/User");
-const { generateOtp, sendOtp, verifyOtp } = require("../services/otpService");
-const { sendEmail } = require("../utils/emailService");
-const generateToken = require("../utils/generateToken");
+const asyncHandler = require('express-async-handler');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const User = require('../models/User');
+const generateToken = require('../utils/generateToken');
+const { generateOtp, sendOtp, verifyOtp } = require('../services/otpService');
+const { sendEmail } = require('../utils/emailService');
 
 // @desc    Authenticate user & get token
 // @route   POST /api/auth/login
@@ -14,11 +14,7 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
-  if (user && (await bcrypt.compare(password, user.password))) {
-    if (!user.isVerified) {
-      return res.status(403).json({ message: "Please verify your email before logging in" });
-    }
-
+  if (user && (await user.matchPassword(password))) {
     res.json({
       user: {
         _id: user._id,
@@ -30,7 +26,7 @@ const authUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(401).json({ message: "Invalid email or password" });
+    res.status(401).json({ message: 'Invalid email or password' });
   }
 });
 
@@ -40,27 +36,33 @@ const authUser = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, telephone } = req.body;
 
-  const userExists = await User.findOne({ $or: [{ email }, { phoneNumber: telephone }] });
+  const userExists = await User.findOne({ email });
 
   if (userExists) {
-    res.status(400).json({ message: "User with this email or phone number already exists" });
+    res.status(400).json({ message: 'User already exists' });
     return;
   }
-
-  const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
     phoneNumber: telephone,
-    role: "client",
+    role: 'client', // Ensure the role is set to 'client' for all new users
   });
 
   if (user) {
-    const verificationToken = generateToken(user._id, "1h");
+    // Generate OTP
+    const otp = await generateOtp(user._id); // Pass userId to generateOtp function
+
+    // Send OTP to user's email
+    await sendOtp(user.email, otp);
+
+    // Send verification email
+    const verificationToken = user.generateVerificationToken();
     const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
-    await sendEmail(user.email, "Email Verification", `Please verify your email: ${verificationUrl}`);
+    await sendEmail(user.email, 'JEM Book Library Software', 'Thank you for registering!');
+    await sendEmail(user.email, 'Email Verification', `Please verify your email by clicking on the following link: ${verificationUrl}`);
 
     res.status(201).json({
       user: {
@@ -73,18 +75,68 @@ const registerUser = asyncHandler(async (req, res) => {
       token: generateToken(user._id),
     });
   } else {
-    res.status(400).json({ message: "Invalid user data" });
+    res.status(400).json({ message: 'Invalid user data' });
   }
 });
 
-// @desc    Verify user email
-// @route   POST /api/auth/verify-email
+// @desc    Send OTP to user's email
+// @route   POST /api/auth/send-otp
+// @access  Public
+const sendOtpToEmail = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    res.status(400).json({ message: 'Email is required' });
+    return;
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    res.status(400).json({ message: 'User not found' });
+    return;
+  }
+
+  const otp = await generateOtp(user._id);
+  await sendOtp(email, otp);
+  res.status(200).json({ message: 'OTP sent successfully' });
+});
+
+// @desc    Verify OTP
+// @route   POST /api/auth/verify-otp
+// @access  Public
+const verifyOtpCode = asyncHandler(async (req, res) => {
+  const { userId, otp } = req.body;
+
+  if (!userId || !otp) {
+    res.status(400).json({ message: 'User ID and OTP are required' });
+    return;
+  }
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    res.status(400).json({ message: 'User not found' });
+    return;
+  }
+
+  const isValid = await verifyOtp(user._id, otp);
+  if (isValid) {
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } else {
+    res.status(400).json({ message: 'Invalid OTP' });
+  }
+});
+
+// @desc    Verify email
+// @route   GET /api/auth/verify-email
 // @access  Public
 const verifyEmail = asyncHandler(async (req, res) => {
-  const { token } = req.body;
+  const { token } = req.query;
 
   if (!token) {
-    return res.status(400).json({ message: "Verification token is required" });
+    res.status(400).json({ message: 'Invalid token' });
+    return;
   }
 
   try {
@@ -92,15 +144,16 @@ const verifyEmail = asyncHandler(async (req, res) => {
     const user = await User.findById(decoded.id);
 
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: 'User not found' });
+      return;
     }
 
     user.isVerified = true;
     await user.save();
 
-    res.status(200).json({ message: "Email verified successfully" });
+    res.json({ message: 'Email verified successfully' });
   } catch (error) {
-    res.status(400).json({ message: "Invalid or expired token" });
+    res.status(400).json({ message: 'Invalid token' });
   }
 });
 
@@ -113,10 +166,8 @@ const updateProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
-    user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
-
     if (req.body.password) {
-      user.password = await bcrypt.hash(req.body.password, 10);
+      user.password = req.body.password;
     }
 
     const updatedUser = await user.save();
@@ -132,39 +183,20 @@ const updateProfile = asyncHandler(async (req, res) => {
       token: generateToken(updatedUser._id),
     });
   } else {
-    res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: 'User not found' });
   }
 });
 
-// @desc    Send OTP to user's email
-// @route   POST /api/auth/send-otp
-// @access  Public
-const sendOtpToEmail = asyncHandler(async (req, res) => {
-  const { email } = req.body;
+// @desc    Get user role
+// @route   GET /api/auth/role/:id
+// @access  Private
+const getUserRole = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
 
-  const user = await User.findOne({ email });
-
-  if (!user) {
-    res.status(400).json({ message: "User not found" });
-    return;
-  }
-
-  const otp = await generateOtp(user._id);
-  await sendOtp(email, otp);
-  res.status(200).json({ message: "OTP sent successfully" });
-});
-
-// @desc    Verify OTP
-// @route   POST /api/auth/verify-otp
-// @access  Public
-const verifyOtpCode = asyncHandler(async (req, res) => {
-  const { userId, otp } = req.body;
-
-  const isValid = await verifyOtp(userId, otp);
-  if (isValid) {
-    res.status(200).json({ message: "OTP verified successfully" });
+  if (user) {
+    res.json({ role: user.role });
   } else {
-    res.status(400).json({ message: "Invalid OTP" });
+    res.status(404).json({ message: 'User not found' });
   }
 });
 
@@ -173,66 +205,65 @@ const verifyOtpCode = asyncHandler(async (req, res) => {
 // @access  Public
 const requestPasswordReset = asyncHandler(async (req, res) => {
   const { email } = req.body;
+
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(404).json({ message: "User not found" });
+    res.status(404).json({ message: 'User not found' });
     return;
   }
 
-  const otp = await generateOtp(user._id);
-  await sendOtp(email, otp);
+  const resetToken = user.generateVerificationToken('1h');
+  const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+  const message = `You are receiving this email because you (or someone else) have requested the reset of a password. Please click on the following link, or paste this into your browser to complete the process: ${resetUrl}`;
 
-  res.status(200).json({ message: "OTP sent successfully", userId: user._id });
+  try {
+    await sendEmail(user.email, 'Password Reset Request', message);
+    res.status(200).json({ message: 'Reset link sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error);
+    res.status(500).json({ message: 'Error sending email' });
+  }
 });
 
 // @desc    Reset user password
 // @route   POST /api/auth/reset-password
 // @access  Public
 const resetPassword = asyncHandler(async (req, res) => {
-  const { userId, otp, password, confirmPassword } = req.body;
+  const { token, password } = req.body;
 
-  if (!password || password !== confirmPassword) {
-    return res.status(400).json({ message: "Passwords do not match" });
+  if (!token || !password) {
+    res.status(400).json({ message: 'Invalid token or password' });
+    return;
   }
 
-  const isValid = await verifyOtp(userId, otp);
-  if (!isValid) {
-    return res.status(400).json({ message: "Invalid OTP" });
-  }
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const user = await User.findById(decoded.id);
 
-  const user = await User.findById(userId);
-  if (!user) {
-    return res.status(404).json({ message: "User not found" });
-  }
+    if (!user) {
+      res.status(404).json({ message: 'User not found' });
+      return;
+    }
 
-  user.password = await bcrypt.hash(password, 10);
-  await user.save();
+    user.password = password;
+    await user.save();
 
-  res.status(200).json({ message: "Password has been updated successfully" });
-});
-
-// @desc    Get user role
-// @route   GET /api/auth/user-role/:id
-// @access  Private
-const getUserRole = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
-
-  if (user) {
-    res.json({ role: user.role });
-  } else {
-    res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: 'Password has been updated' });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(400).json({ message: 'Invalid token' });
   }
 });
 
 module.exports = {
   authUser,
   registerUser,
-  updateProfile,
   sendOtpToEmail,
   verifyOtpCode,
   verifyEmail,
+  updateProfile,
+  getUserRole,
   requestPasswordReset,
   resetPassword,
-  getUserRole,
 };
