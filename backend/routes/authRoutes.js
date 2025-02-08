@@ -1,5 +1,5 @@
-const express = require("express");
-const { check, validationResult } = require("express-validator");
+const express = require('express');
+const { check, validationResult } = require('express-validator');
 const {
   registerUser,
   authUser,
@@ -10,35 +10,24 @@ const {
   getUserRole,
   requestPasswordReset,
   resetPassword,
-} = require("../controllers/authController");
-const { protect } = require("../middleware/authMiddleware");
-
+} = require('../controllers/authController');
+const { protect } = require('../middleware/authMiddleware');
 const router = express.Router();
 
-// 📌 Validation Rules
+// Validation rules
 const validateRegister = [
-  check("name").not().isEmpty().withMessage("Name is required"),
-  check("email").isEmail().withMessage("Invalid email"),
-  check("telephone").not().isEmpty().withMessage("Telephone is required"),
-  check("password").isLength({ min: 6 }).withMessage("Password must be at least 6 characters long"),
+  check('name').not().isEmpty().withMessage('Name is required'),
+  check('email').isEmail().withMessage('Invalid email'),
+  check('telephone').not().isEmpty().withMessage('Telephone is required'),
+  check('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
 ];
 
 const validateLogin = [
-  check("email").isEmail().withMessage("Invalid email"),
-  check("password").exists().withMessage("Password is required"),
+  check('email').isEmail().withMessage('Invalid email'),
+  check('password').exists().withMessage('Password is required'),
 ];
 
-const validateResetRequest = [check("email").isEmail().withMessage("Valid email is required")];
-
-const validatePasswordReset = [
-  check("password").isLength({ min: 8 }).withMessage("Password must be at least 8 characters long"),
-];
-
-const validateVerifyEmail = [
-  check("token").not().isEmpty().withMessage("Verification token is required"),
-];
-
-// 📌 Middleware to Handle Validation Errors
+// Middleware to handle validation errors
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -47,25 +36,27 @@ const handleValidationErrors = (req, res, next) => {
   next();
 };
 
-// 🔑 Authentication Routes
-router.post("/register", validateRegister, handleValidationErrors, registerUser);
-router.post("/login", validateLogin, handleValidationErrors, authUser);
+// Register route
+router.post('/register', validateRegister, handleValidationErrors, registerUser);
 
-// 🔄 OTP Routes
-router.post("/send-otp", sendOtpToEmail);
-router.post("/verify-otp", verifyOtpCode);
+// Login route
+router.post('/login', validateLogin, handleValidationErrors, authUser);
 
-// ✉️ Email Verification
-router.post("/verify-email", validateVerifyEmail, handleValidationErrors, verifyEmail);
+// OTP routes
+router.post('/send-otp', sendOtpToEmail);
+router.post('/verify-otp', verifyOtpCode);
 
-// 🔐 User Profile (Protected)
-router.put("/profile", protect, updateProfile);
+// Email verification route
+router.get('/verify-email', verifyEmail);
 
-// 🔓 User Role
-router.get("/user-role/:id", getUserRole);
+// Update profile route (protected)
+router.put('/profile', protect, updateProfile);
 
-// 🔄 Password Reset Routes
-router.post("/request-reset", validateResetRequest, handleValidationErrors, requestPasswordReset);
-router.post("/reset-password", validatePasswordReset, handleValidationErrors, resetPassword);
+// Get user role route
+router.get('/user-role/:id', getUserRole);
+
+// Password reset routes
+router.post('/request-reset', requestPasswordReset);
+router.post('/reset-password', resetPassword);
 
 module.exports = router;
