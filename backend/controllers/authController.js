@@ -227,26 +227,44 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
 // @route POST /api/auth/reset-password
 // @access Public
 const resetPassword = asyncHandler(async (req, res) => {
-  const { userId, otp, password, confirmPassword } = req.body;
+  try {
+    const { userId, otp, password, confirmPassword } = req.body;
 
-  if (!password || password !== confirmPassword) {
-    return res.status(400).json({ message: 'Passwords do not match' });
+    if (!userId || !otp || !password || !confirmPassword) {
+      return res.status(400).json({ message: 'All fields are required' });
+    }
+
+    if (password !== confirmPassword) {
+      return res.status(400).json({ message: 'Passwords do not match' });
+    }
+
+    // Convert userId to ObjectId to match the OTP schema
+    const objectId = new mongoose.Types.ObjectId(userId);
+
+    // Verify the OTP
+    const isValid = await verifyOtp(objectId, otp);
+    if (!isValid) {
+      return res.status(400).json({ message: 'Invalid or expired OTP' });
+    }
+
+    // Find the user
+    const user = await User.findById(objectId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Hash the new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update the password
+    user.password = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password has been updated successfully' });
+  } catch (error) {
+    console.error('Error resetting password:', error);
+    res.status(500).json({ message: 'Server error. Please try again later.' });
   }
-
-  const isValid = await verifyOtp(userId, otp);
-  if (!isValid) {
-    return res.status(400).json({ message: 'Invalid OTP' });
-  }
-
-  const user = await User.findById(userId);
-  if (!user) {
-    return res.status(404).json({ message: 'User not found' });
-  }
-
-  user.password = await bcrypt.hash(password, 10); // Ensure password is hashed before saving
-  await user.save();
-
-  res.status(200).json({ message: 'Password has been updated successfully' });
 });
 
 module.exports = {
