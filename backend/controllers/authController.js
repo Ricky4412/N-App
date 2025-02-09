@@ -30,11 +30,9 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-
-
-// @desc Register a new user
-// @route POST /api/auth/register
-// @access Public
+// @desc    Register a new user
+// @route   POST /api/auth/register
+// @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, telephone } = req.body;
 
@@ -45,12 +43,10 @@ const registerUser = asyncHandler(async (req, res) => {
     return;
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
   const user = await User.create({
     name,
     email,
-    password: hashedPassword,
+    password,
     phoneNumber: telephone,
     role: 'client', // Ensure the role is set to 'client' for all new users
   });
@@ -83,9 +79,9 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Send OTP to user's email
-// @route POST /api/auth/send-otp
-// @access Public
+// @desc    Send OTP to user's email
+// @route   POST /api/auth/send-otp
+// @access  Public
 const sendOtpToEmail = asyncHandler(async (req, res) => {
   const { email } = req.body;
 
@@ -106,9 +102,9 @@ const sendOtpToEmail = asyncHandler(async (req, res) => {
   res.status(200).json({ message: 'OTP sent successfully' });
 });
 
-// @desc Verify OTP
-// @route POST /api/auth/verify-otp
-// @access Public
+// @desc    Verify OTP
+// @route   POST /api/auth/verify-otp
+// @access  Public
 const verifyOtpCode = asyncHandler(async (req, res) => {
   const { userId, otp } = req.body;
 
@@ -132,9 +128,9 @@ const verifyOtpCode = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Verify email
-// @route GET /api/auth/verify-email
-// @access Public
+// @desc    Verify email
+// @route   GET /api/auth/verify-email
+// @access  Public
 const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.query;
 
@@ -161,9 +157,9 @@ const verifyEmail = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Update user profile
-// @route PUT /api/auth/profile
-// @access Private
+// @desc    Update user profile
+// @route   PUT /api/auth/profile
+// @access  Private
 const updateProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
@@ -171,7 +167,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     user.name = req.body.name || user.name;
     user.email = req.body.email || user.email;
     if (req.body.password) {
-      user.password = await bcrypt.hash(req.body.password, 10); // Ensure password is hashed before saving
+      user.password = req.body.password;
     }
 
     const updatedUser = await user.save();
@@ -191,9 +187,9 @@ const updateProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Get user role
-// @route GET /api/auth/role/:id
-// @access Private
+// @desc    Get user role
+// @route   GET /api/auth/role/:id
+// @access  Private
 const getUserRole = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -227,44 +223,26 @@ const requestPasswordReset = asyncHandler(async (req, res) => {
 // @route POST /api/auth/reset-password
 // @access Public
 const resetPassword = asyncHandler(async (req, res) => {
-  try {
-    const { userId, otp, password, confirmPassword } = req.body;
+  const { userId, otp, password, confirmPassword } = req.body;
 
-    if (!userId || !otp || !password || !confirmPassword) {
-      return res.status(400).json({ message: 'All fields are required' });
-    }
-
-    if (password !== confirmPassword) {
-      return res.status(400).json({ message: 'Passwords do not match' });
-    }
-
-    // Convert userId to ObjectId to match the OTP schema
-    const objectId = new mongoose.Types.ObjectId(userId);
-
-    // Verify the OTP
-    const isValid = await verifyOtp(objectId, otp);
-    if (!isValid) {
-      return res.status(400).json({ message: 'Invalid or expired OTP' });
-    }
-
-    // Find the user
-    const user = await User.findById(objectId);
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    // Hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    // Update the password
-    user.password = hashedPassword;
-    await user.save();
-
-    res.status(200).json({ message: 'Password has been updated successfully' });
-  } catch (error) {
-    console.error('Error resetting password:', error);
-    res.status(500).json({ message: 'Server error. Please try again later.' });
+  if (!password || password !== confirmPassword) {
+    return res.status(400).json({ message: 'Passwords do not match' });
   }
+
+  const isValid = await verifyOtp(userId, otp);
+  if (!isValid) {
+    return res.status(400).json({ message: 'Invalid OTP' });
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  user.password = await bcrypt.hash(password, 10);
+  await user.save();
+
+  res.status(200).json({ message: 'Password has been updated successfully' });
 });
 
 module.exports = {
