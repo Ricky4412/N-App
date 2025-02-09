@@ -6,8 +6,7 @@ const generateToken = require('../utils/generateToken');
 const { generateOtp, sendOtp, verifyOtp } = require('../services/otpService');
 const { sendEmail } = require('../utils/emailService');
 
-
-       // @desc    Authenticate user & get token
+// @desc    Authenticate user & get token
 // @route   POST /api/auth/login
 // @access  Public
 const authUser = asyncHandler(async (req, res) => {
@@ -30,6 +29,7 @@ const authUser = asyncHandler(async (req, res) => {
     res.status(401).json({ message: 'Invalid email or password' });
   }
 });
+
 
 
 // @desc Register a new user
