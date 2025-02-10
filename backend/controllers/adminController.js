@@ -5,9 +5,9 @@ const Subscription = require('../models/Subscription');
 const { sendEmail } = require('../utils/emailService');
 const generateToken = require('../utils/generateToken');
 
-// @desc    Get all users
-// @route   GET /api/admin/users
-// @access  Private/Admin
+// @desc Get all users
+// @route GET /api/admin/users
+// @access Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
   try {
     const users = await User.find({});
@@ -17,9 +17,9 @@ const getUsers = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get all books
-// @route   GET /api/admin/books
-// @access  Private/Admin
+// @desc Get all books
+// @route GET /api/admin/books
+// @access Private/Admin
 const getBooks = asyncHandler(async (req, res) => {
   try {
     const books = await Book.find({});
@@ -29,9 +29,9 @@ const getBooks = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get all subscriptions
-// @route   GET /api/admin/subscriptions
-// @access  Private/Admin
+// @desc Get all subscriptions
+// @route GET /api/admin/subscriptions
+// @access Private/Admin
 const getSubscriptions = asyncHandler(async (req, res) => {
   try {
     const subscriptions = await Subscription.find({}).populate('user');
@@ -41,9 +41,9 @@ const getSubscriptions = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete user
-// @route   DELETE /api/admin/users/:id
-// @access  Private/Admin
+// @desc Delete user
+// @route DELETE /api/admin/users/:id
+// @access Private/Admin
 const deleteUser = asyncHandler(async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -59,9 +59,9 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Delete book
-// @route   DELETE /api/admin/books/:id
-// @access  Private/Admin
+// @desc Delete book
+// @route DELETE /api/admin/books/:id
+// @access Private/Admin
 const deleteBook = asyncHandler(async (req, res) => {
   try {
     const book = await Book.findById(req.params.id);
@@ -77,9 +77,9 @@ const deleteBook = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Register a new admin
-// @route   POST /api/admin/register-admin
-// @access  Private/Admin
+// @desc Register a new admin
+// @route POST /api/admin/register-admin
+// @access Private/Admin
 const registerAdmin = asyncHandler(async (req, res) => {
   const { name, email, password, phoneNumber } = req.body;
 
@@ -121,9 +121,9 @@ const registerAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Add a new book
-// @route   POST /api/admin/books
-// @access  Private/Admin
+// @desc Add a new book
+// @route POST /api/admin/books
+// @access Private/Admin
 const addBook = asyncHandler(async (req, res) => {
   const { title, author, description, rating, coverImage, htmlUrl, price } = req.body;
 
@@ -153,9 +153,9 @@ const addBook = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Update a book
-// @route   PUT /api/books/:id
-// @access  Private/Admin
+// @desc Update a book
+// @route PUT /api/books/:id
+// @access Private/Admin
 const updateBook = asyncHandler(async (req, res) => {
   const { title, author, coverImage, description, rating, htmlUrl, price } = req.body;
 
@@ -180,7 +180,7 @@ const updateBook = asyncHandler(async (req, res) => {
     res.status(500).json({ message: 'Failed to update book', error: error.message });
   }
 });
-  
+
 module.exports = {
   getUsers,
   getBooks,
@@ -189,4 +189,5 @@ module.exports = {
   deleteBook,
   registerAdmin,
   addBook,
+  updateBook,
 };
