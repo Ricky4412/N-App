@@ -125,12 +125,12 @@ const registerAdmin = asyncHandler(async (req, res) => {
 // @route   POST /api/admin/books
 // @access  Private/Admin
 const addBook = asyncHandler(async (req, res) => {
-  const { title, author, description, rating, coverImage, htmlUrl } = req.body;
+  const { title, author, description, rating, coverImage, htmlUrl, price } = req.body;
 
   // Log received data for debugging
   console.log('Request Body:', req.body);
 
-  if (!title || !author || !description || !coverImage || !htmlUrl) {
+  if (!title || !author || !description || !coverImage || !htmlUrl || !price) {
     res.status(400).json({ message: 'All fields are required' });
     return;
   }
@@ -142,6 +142,7 @@ const addBook = asyncHandler(async (req, res) => {
     rating: parseFloat(rating),
     coverImage,
     htmlUrl, // Change from pdf to htmlUrl
+    price: parseFloat(price), // Add price
   });
 
   try {
@@ -152,6 +153,34 @@ const addBook = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Update a book
+// @route   PUT /api/books/:id
+// @access  Private/Admin
+const updateBook = asyncHandler(async (req, res) => {
+  const { title, author, coverImage, description, rating, htmlUrl, price } = req.body;
+
+  try {
+    const book = await Book.findById(req.params.id);
+
+    if (book) {
+      book.title = title || book.title;
+      book.author = author || book.author;
+      book.coverImage = coverImage || book.coverImage;
+      book.description = description || book.description;
+      book.rating = rating || book.rating;
+      book.htmlUrl = htmlUrl || book.htmlUrl;
+      book.price = price || book.price; // Add price
+
+      const updatedBook = await book.save();
+      res.json(updatedBook);
+    } else {
+      res.status(404).json({ message: 'Book not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to update book', error: error.message });
+  }
+});
+  
 module.exports = {
   getUsers,
   getBooks,
