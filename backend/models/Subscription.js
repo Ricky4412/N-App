@@ -6,6 +6,11 @@ const subscriptionSchema = new mongoose.Schema({
     ref: 'User',
     required: true,
   },
+  book: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book',
+    required: true,
+  },
   plan: { type: String, required: true },
   price: { type: Number, required: true },
   duration: { type: Number, required: true },

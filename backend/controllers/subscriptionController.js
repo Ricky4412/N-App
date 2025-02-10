@@ -7,7 +7,7 @@ const User = require('../models/User');
 // @route   POST /api/subscriptions
 // @access  Private
 const createSubscription = asyncHandler(async (req, res) => {
-  const { plan, price, duration } = req.body;
+  const { bookId, plan, price, duration } = req.body;
   const userId = req.user._id;
 
   const startDate = new Date();
@@ -21,6 +21,7 @@ const createSubscription = asyncHandler(async (req, res) => {
     duration,
     startDate,
     endDate,
+    book: bookId, // Associate subscription with a specific book
   });
 
   if (subscription) {
@@ -82,17 +83,17 @@ const handlePayment = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get user's subscription
-// @route   GET /api/subscriptions
+// @route   GET /api/subscriptions/:bookId
 // @access  Private
 const getUserSubscription = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-  const subscription = await Subscription.findOne({ user: userId });
+  const { bookId } = req.params;
+  const subscription = await Subscription.findOne({ user: userId, book: bookId });
 
   if (subscription) {
     res.json(subscription);
   } else {
-    res.status(404);
-    throw new Error('Subscription not found');
+    res.status(404).json({ message: 'Subscription not found' });
   }
 });
 
