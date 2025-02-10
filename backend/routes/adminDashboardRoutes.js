@@ -4,6 +4,6 @@ const { protect, admin } = require('../middleware/authMiddleware');
 const router = express.Router();
 
 router.get('/dashboard', protect, admin, getAdminDashboardData);
-router.get('/analytics', protect, admin, getAnalyticsData); // Ensure endpoint matches
+router.get('/analytics', protect, admin, getAnalyticsData);
 
 module.exports = router;
