@@ -8,6 +8,7 @@ const {
   deleteBook,
   registerAdmin,
   addBook,
+  updateBook,
 } = require('../controllers/adminController');
 const { protect, admin } = require('../middleware/authMiddleware');
 const router = express.Router();
@@ -37,5 +38,6 @@ router.get('/subscriptions', protect, admin, getSubscriptions);
 router.delete('/users/:id', protect, admin, deleteUser);
 router.delete('/books/:id', protect, admin, deleteBook);
 router.post('/books', protect, admin, addBook);
+router.put('/books/:id', protect, admin, updateBook);
 
 module.exports = router;
