@@ -47,7 +47,7 @@ const getBookById = asyncHandler(async (req, res) => {
 // @route   POST /api/books
 // @access  Private/Admin
 const addBook = asyncHandler(async (req, res) => {
-  const { title, author, coverImage, description, rating, htmlUrl } = req.body;
+  const { title, author, coverImage, description, rating, htmlUrl, price } = req.body;
 
   if (!htmlUrl) {
     return res.status(400).json({ message: 'HTML URL is required.' });
@@ -60,6 +60,7 @@ const addBook = asyncHandler(async (req, res) => {
     description,
     rating,
     htmlUrl,
+    price,
   });
 
   try {
@@ -111,7 +112,7 @@ const getRecommendations = asyncHandler(async (req, res) => {
 // @route   PUT /api/books/:id
 // @access  Private/Admin
 const updateBook = asyncHandler(async (req, res) => {
-  const { title, author, coverImage, description, rating, htmlUrl } = req.body;
+  const { title, author, coverImage, description, rating, htmlUrl, price } = req.body;
 
   try {
     const book = await Book.findById(req.params.id);
@@ -123,6 +124,7 @@ const updateBook = asyncHandler(async (req, res) => {
       book.description = description || book.description;
       book.rating = rating || book.rating;
       book.htmlUrl = htmlUrl || book.htmlUrl;
+      book.price = price || book.price;
 
       const updatedBook = await book.save();
       res.json(updatedBook);
