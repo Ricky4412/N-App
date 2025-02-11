@@ -1,4 +1,3 @@
-// routes/subscriptionRoutes.js
 const express = require('express');
 const axios = require('axios');
 const { createSubscription, renewSubscription, handlePayment, getUserSubscription } = require('../controllers/subscriptionController');
@@ -15,27 +14,6 @@ router.put('/renew', protect, renewSubscription);
 router.post('/pay', protect, handlePayment);
 
 // Route to get user subscription
-router.get('/', protect, getUserSubscription);
-
-// Additional payment route using axios
-router.post('/pay', protect, async (req, res) => {
-  const { email, amount, phone_number } = req.body;
-
-  try {
-    const response = await axios.post('https://api.mobilemoney.com/pay', {
-      email,
-      amount,
-      phone_number,
-    });
-
-    if (response.data.ResponseCode === '0000') {
-      res.json({ success: true, message: 'Payment successful' });
-    } else {
-      res.status(400).json({ success: false, message: 'Payment failed' });
-    }
-  } catch (error) {
-    res.status(500).json({ success: false, message: 'Payment error', error: error.message });
-  }
-});
+router.get('/:bookId', protect, getUserSubscription);
 
 module.exports = router;
