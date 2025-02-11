@@ -12,7 +12,7 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 dotenv.config();
 
 // Ensure all required environment variables are set
-const requiredEnvVars = ['PORT', 'FRONTEND_URL', 'MONGO_URI', 'JWT_SECRET'];
+const requiredEnvVars = ['PORT', 'FRONTEND_URL', 'MONGO_URI', 'JWT_SECRET', 'PROXY_SERVER_URL'];
 requiredEnvVars.forEach((varName) => {
   if (!process.env[varName]) {
     console.error(`Missing required environment variable: ${varName}`);
