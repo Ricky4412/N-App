@@ -56,8 +56,13 @@ server.listen(PORT, () => {
 
 // Error handling for server listening
 server.on('error', (err) => {
-  logger.error('Server error', { err });
-  process.exit(1);
+  if (err.code === 'EADDRINUSE') {
+    logger.error(`Port ${PORT} is already in use`);
+    process.exit(1);
+  } else {
+    logger.error('Server error', { err });
+    process.exit(1);
+  }
 });
 
 // Graceful shutdown
