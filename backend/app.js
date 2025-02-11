@@ -75,7 +75,7 @@ const userRoutes = require('./routes/userRoutes');
 app.use('/api/auth', authRoutes);
 app.use('/api/books', bookRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
-app.use('/api/admin', adminRoutes);
+app.use('/api/admin', adminRoutes); // Ensure this is present
 app.use('/api/admin-dashboard', adminDashboardRoutes);
 app.use('/api/bookmarks', bookmarkRoutes);
 app.use('/api/notifications', notificationRoutes);
