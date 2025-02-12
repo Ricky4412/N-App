@@ -22,7 +22,7 @@ router.post('/pay', protect, initializePayment);
 // Route to verify Paystack payment
 router.get('/verify/:reference', protect, verifyPayment);
 
-// Route to get user subscription
-router.get('/:bookId', protect, getUserSubscription);
+// Route to get user subscription by ID
+router.get('/:id', protect, getUserSubscription);
 
 module.exports = router;
