@@ -54,7 +54,8 @@ const renewSubscription = asyncHandler(async (req, res) => {
 
     res.json(subscription);
   } else {
-    res.status(404).throw new Error('Subscription not found');
+    res.status(404);
+    throw new Error('Subscription not found');
   }
 });
 
