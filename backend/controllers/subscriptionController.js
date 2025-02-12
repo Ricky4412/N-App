@@ -21,7 +21,7 @@ const createSubscription = asyncHandler(async (req, res) => {
     duration,
     startDate,
     endDate,
-    book: bookId, // Associate subscription with a specific book
+    book: bookId,
   });
 
   if (subscription) {
@@ -36,49 +36,50 @@ const createSubscription = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Renew a subscription
-// @route   PUT /api/subscriptions/renew
+// @desc    Initialize Paystack payment
+// @route   POST /api/subscriptions/pay
 // @access  Private
-const renewSubscription = asyncHandler(async (req, res) => {
-  const { subscriptionId } = req.body;
-  const userId = req.user._id;
+const initializePayment = asyncHandler(async (req, res) => {
+  const { email, amount } = req.body;
 
-  const subscription = await Subscription.findById(subscriptionId);
+  try {
+    const response = await axios.post('https://api.paystack.co/transaction/initialize', {
+      email,
+      amount: amount * 100, // Convert amount to kobo
+      currency: 'GHS', // Set currency to Ghana Cedis
+      channels: ['mobile_money'], // Enable mobile money payments
+    }, {
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+      },
+    });
 
-  if (subscription && subscription.user.toString() === userId.toString()) {
-    const newEndDate = new Date(subscription.endDate);
-    newEndDate.setDate(newEndDate.getDate() + subscription.duration);
-
-    subscription.endDate = newEndDate;
-    await subscription.save();
-
-    res.json(subscription);
-  } else {
-    res.status(404);
-    throw new Error('Subscription not found');
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Payment initialization error', error: error.message });
   }
 });
 
-// @desc    Handle mobile money payment
-// @route   POST /api/subscriptions/pay
+// @desc    Verify Paystack payment
+// @route   GET /api/subscriptions/verify/:reference
 // @access  Private
-const handlePayment = asyncHandler(async (req, res) => {
-  const { email, amount, phone_number } = req.body;
+const verifyPayment = asyncHandler(async (req, res) => {
+  const { reference } = req.params;
 
   try {
-    const response = await axios.post('https://api.mobilemoney.com/pay', {
-      email,
-      amount,
-      phone_number,
+    const response = await axios.get(`https://api.paystack.co/transaction/verify/${reference}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+      },
     });
 
-    if (response.data.ResponseCode === '0000') {
-      res.json({ success: true, message: 'Payment successful' });
+    if (response.data.data.status === 'success') {
+      res.json({ success: true, message: 'Payment verified successfully' });
     } else {
-      res.status(400).json({ success: false, message: 'Payment failed' });
+      res.status(400).json({ success: false, message: 'Payment verification failed' });
     }
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Payment error', error: error.message });
+    res.status(500).json({ success: false, message: 'Payment verification error', error: error.message });
   }
 });
 
@@ -99,7 +100,7 @@ const getUserSubscription = asyncHandler(async (req, res) => {
 
 module.exports = {
   createSubscription,
-  renewSubscription,
-  handlePayment,
+  initializePayment,
+  verifyPayment,
   getUserSubscription,
 };
