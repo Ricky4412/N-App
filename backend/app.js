@@ -7,12 +7,12 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const connectDB = require('./config/db');
-const { errorHandler } = require('./middleware/errorMiddleware');
+const { errorHandler, notFound } = require('./middleware/errorMiddleware');
 
 dotenv.config();
 
 // Ensure all required environment variables are set
-const requiredEnvVars = ['PORT', 'FRONTEND_URL', 'MONGO_URI', 'JWT_SECRET'];
+const requiredEnvVars = ['PORT', 'FRONTEND_URL', 'MONGO_URI', 'JWT_SECRET', 'PAYSTACK_PUBLIC_KEY', 'PAYSTACK_SECRET_KEY'];
 requiredEnvVars.forEach((varName) => {
   if (!process.env[varName]) {
     console.error(`Missing required environment variable: ${varName}`);
@@ -90,6 +90,7 @@ app.get('/', (req, res) => {
 });
 
 // Error handling middleware
+app.use(notFound);
 app.use(errorHandler);
 
 module.exports = app;
