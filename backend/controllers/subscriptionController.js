@@ -36,6 +36,29 @@ const createSubscription = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Renew a subscription
+// @route   PUT /api/subscriptions/renew
+// @access  Private
+const renewSubscription = asyncHandler(async (req, res) => {
+  const { subscriptionId } = req.body;
+  const userId = req.user._id;
+
+  const subscription = await Subscription.findById(subscriptionId);
+
+  if (subscription && subscription.user.toString() === userId.toString()) {
+    const newEndDate = new Date(subscription.endDate);
+    newEndDate.setDate(newEndDate.getDate() + subscription.duration);
+
+    subscription.endDate = newEndDate;
+    await subscription.save();
+
+    res.json(subscription);
+  } else {
+    res.status(404);
+    throw new Error('Subscription not found');
+  }
+});
+
 // @desc    Initialize Paystack payment
 // @route   POST /api/subscriptions/pay
 // @access  Private
@@ -100,6 +123,7 @@ const getUserSubscription = asyncHandler(async (req, res) => {
 
 module.exports = {
   createSubscription,
+  renewSubscription,
   initializePayment,
   verifyPayment,
   getUserSubscription,
