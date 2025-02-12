@@ -54,8 +54,7 @@ const renewSubscription = asyncHandler(async (req, res) => {
 
     res.json(subscription);
   } else {
-    res.status(404);
-    throw new Error('Subscription not found');
+    res.status(404).throw new Error('Subscription not found');
   }
 });
 
@@ -107,12 +106,10 @@ const verifyPayment = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get user's subscription
-// @route   GET /api/subscriptions/:bookId
+// @route   GET /api/subscriptions/:id
 // @access  Private
 const getUserSubscription = asyncHandler(async (req, res) => {
-  const userId = req.user._id;
-  const { bookId } = req.params;
-  const subscription = await Subscription.findOne({ user: userId, book: bookId });
+  const subscription = await Subscription.findById(req.params.id);
 
   if (subscription) {
     res.json(subscription);
