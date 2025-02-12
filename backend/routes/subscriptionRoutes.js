@@ -7,6 +7,7 @@ const {
   getUserSubscription,
 } = require('../controllers/subscriptionController');
 const { protect } = require('../middleware/authMiddleware');
+
 const router = express.Router();
 
 // Route to create a subscription
