@@ -34,8 +34,7 @@ const createSubscription = asyncHandler(async (req, res) => {
 
     res.status(201).json(subscription);
   } else {
-    res.status(400);
-    throw new Error('Invalid subscription data');
+    res.status(400).json({ message: 'Invalid subscription data' });
   }
 });
 
@@ -114,11 +113,9 @@ const verifyPayment = asyncHandler(async (req, res) => {
 
       res.json({ success: true, message: 'Payment verified successfully' });
     } else {
-      console.error('Payment verification failed:', response.data);
       res.status(400).json({ success: false, message: 'Payment verification failed', data: response.data });
     }
   } catch (error) {
-    console.error('Payment verification error:', error.message);
     res.status(500).json({ success: false, message: 'Payment verification error', error: error.message });
   }
 });
