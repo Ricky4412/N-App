@@ -70,7 +70,7 @@ const initializePayment = asyncHandler(async (req, res) => {
       email,
       amount: amount * 100, // Convert amount to kobo
       currency: 'GHS', // Set currency to Ghana Cedis
-      channels: ['mobile_money'], // Enable mobile money payments
+      channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'], // Enable multiple payment channels
     }, {
       headers: {
         Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
