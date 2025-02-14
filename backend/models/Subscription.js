@@ -16,6 +16,9 @@ const subscriptionSchema = new mongoose.Schema({
   duration: { type: Number, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
+  mobileNumber: { type: String, required: true },
+  serviceProvider: { type: String, required: true },
+  accountName: { type: String, required: true },
 });
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);
