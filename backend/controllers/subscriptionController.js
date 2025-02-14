@@ -97,6 +97,14 @@ const verifyPayment = asyncHandler(async (req, res) => {
     });
 
     if (response.data.data.status === 'success') {
+      // Payment successful, update subscription status
+      const subscription = await Subscription.findOne({ user: req.user._id, status: 'pending' });
+      if (subscription) {
+        subscription.status = 'active';
+        subscription.paidAt = new Date();
+        await subscription.save();
+      }
+
       res.json({ success: true, message: 'Payment verified successfully' });
     } else {
       console.error('Payment verification failed:', response.data);
