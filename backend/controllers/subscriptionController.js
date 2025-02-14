@@ -54,8 +54,7 @@ const renewSubscription = asyncHandler(async (req, res) => {
 
     res.json(subscription);
   } else {
-    res.status(404);
-    throw new Error('Subscription not found');
+    res.status(404).throw new Error('Subscription not found');
   }
 });
 
@@ -99,9 +98,11 @@ const verifyPayment = asyncHandler(async (req, res) => {
     if (response.data.data.status === 'success') {
       res.json({ success: true, message: 'Payment verified successfully' });
     } else {
-      res.status(400).json({ success: false, message: 'Payment verification failed' });
+      console.error('Payment verification failed:', response.data);
+      res.status(400).json({ success: false, message: 'Payment verification failed', data: response.data });
     }
   } catch (error) {
+    console.error('Payment verification error:', error.message);
     res.status(500).json({ success: false, message: 'Payment verification error', error: error.message });
   }
 });
