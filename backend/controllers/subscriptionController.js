@@ -7,7 +7,7 @@ const User = require('../models/User');
 // @route   POST /api/subscriptions
 // @access  Private
 const createSubscription = asyncHandler(async (req, res) => {
-  const { bookId, plan, price, duration } = req.body;
+  const { bookId, plan, price, duration, mobileNumber, serviceProvider, accountName } = req.body;
   const userId = req.user._id;
 
   const startDate = new Date();
@@ -22,6 +22,9 @@ const createSubscription = asyncHandler(async (req, res) => {
     startDate,
     endDate,
     book: bookId,
+    mobileNumber,
+    serviceProvider,
+    accountName,
   });
 
   if (subscription) {
@@ -54,8 +57,7 @@ const renewSubscription = asyncHandler(async (req, res) => {
 
     res.json(subscription);
   } else {
-    res.status(404);
-    throw new Error('Subscription not found');
+    res.status(404).json({ message: 'Subscription not found' });
   }
 });
 
@@ -63,14 +65,19 @@ const renewSubscription = asyncHandler(async (req, res) => {
 // @route   POST /api/subscriptions/pay
 // @access  Private
 const initializePayment = asyncHandler(async (req, res) => {
-  const { email, amount } = req.body;
+  const { email, amount, mobileNumber, serviceProvider, accountName } = req.body;
 
   try {
     const response = await axios.post('https://api.paystack.co/transaction/initialize', {
       email,
       amount: amount * 100, // Convert amount to kobo
       currency: 'GHS', // Set currency to Ghana Cedis
-      channels: ['card', 'bank', 'ussd', 'qr', 'mobile_money', 'bank_transfer'], // Enable multiple payment channels
+      channels: ['mobile_money'], // Enable mobile money payments
+      metadata: {
+        mobileNumber,
+        serviceProvider,
+        accountName,
+      },
     }, {
       headers: {
         Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
