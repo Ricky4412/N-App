@@ -60,6 +60,35 @@ const renewSubscription = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Initialize Paystack payment
+// @route   POST /api/subscriptions/pay
+// @access  Private
+const initializePayment = asyncHandler(async (req, res) => {
+  const { email, amount, mobileNumber, serviceProvider, accountName } = req.body;
+
+  try {
+    const response = await axios.post('https://api.paystack.co/transaction/initialize', {
+      email,
+      amount: amount * 100, // Convert amount to kobo
+      currency: 'GHS', // Set currency to Ghana Cedis
+      channels: ['mobile_money'], // Enable mobile money payments
+      metadata: {
+        mobileNumber,
+        serviceProvider,
+        accountName,
+      },
+    }, {
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+      },
+    });
+
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ success: false, message: 'Payment initialization error', error: error.message });
+  }
+});
+
 // @desc    Verify Paystack payment
 // @route   GET /api/subscriptions/verify/:reference
 // @access  Private
@@ -107,6 +136,7 @@ const getUserSubscription = asyncHandler(async (req, res) => {
 module.exports = {
   createSubscription,
   renewSubscription,
+  initializePayment,
   verifyPayment,
   getUserSubscription,
 };
