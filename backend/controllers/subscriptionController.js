@@ -102,7 +102,9 @@ const verifyPayment = asyncHandler(async (req, res) => {
       },
     });
 
-    if (response.data.data.status === 'success') {
+    const verificationData = response.data.data;
+
+    if (verificationData.status === 'success') {
       // Payment successful, update subscription status
       const subscription = await Subscription.findOne({ user: req.user._id, status: 'pending' });
       if (subscription) {
@@ -113,7 +115,7 @@ const verifyPayment = asyncHandler(async (req, res) => {
 
       res.json({ success: true, message: 'Payment verified successfully' });
     } else {
-      res.status(400).json({ success: false, message: 'Payment verification failed', data: response.data });
+      res.status(400).json({ success: false, message: 'Payment verification failed', data: verificationData });
     }
   } catch (error) {
     res.status(500).json({ success: false, message: 'Payment verification error', error: error.message });
