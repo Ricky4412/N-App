@@ -19,6 +19,8 @@ const subscriptionSchema = new mongoose.Schema({
   mobileNumber: { type: String, required: true },
   serviceProvider: { type: String, required: true },
   accountName: { type: String, required: true },
+  status: { type: String, default: 'pending' }, // Add status field
+  paidAt: { type: Date }, // Add paidAt field
 });
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);
