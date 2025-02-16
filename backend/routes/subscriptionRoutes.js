@@ -4,6 +4,7 @@ const {
   renewSubscription,
   initializePayment,
   verifyPayment,
+  handlePaystackWebhook,
   getUserSubscription,
 } = require('../controllers/subscriptionController');
 const { protect } = require('../middleware/authMiddleware');
@@ -21,6 +22,9 @@ router.post('/pay', protect, initializePayment);
 
 // Route to verify Paystack payment
 router.get('/verify/:reference', protect, verifyPayment);
+
+// Route to handle Paystack webhook
+router.post('/webhook', express.json(), handlePaystackWebhook);
 
 // Route to get user subscription by ID
 router.get('/:id', protect, getUserSubscription);
