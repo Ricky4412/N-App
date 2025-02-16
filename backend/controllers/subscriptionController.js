@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler');
 const axios = require('axios');
+const crypto = require('crypto');
 const Subscription = require('../models/Subscription');
 const User = require('../models/User');
 
@@ -25,6 +26,7 @@ const createSubscription = asyncHandler(async (req, res) => {
     mobileNumber,
     serviceProvider,
     accountName,
+    status: 'pending',
   });
 
   if (subscription) {
@@ -122,6 +124,31 @@ const verifyPayment = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Handle Paystack webhook
+// @route   POST /api/subscriptions/webhook
+// @access  Public
+const handlePaystackWebhook = asyncHandler(async (req, res) => {
+  const secret = process.env.PAYSTACK_SECRET_KEY;
+  const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
+
+  if (hash !== req.headers['x-paystack-signature']) {
+    return res.status(401).json({ message: "Unauthorized webhook request" });
+  }
+
+  const event = req.body;
+
+  if (event.event === "charge.success") {
+    try {
+      const { reference } = event.data;
+      await verifyPayment({ params: { reference } }, { json: console.log });
+    } catch (error) {
+      console.error("Error handling Paystack webhook:", error);
+    }
+  }
+
+  res.sendStatus(200);
+});
+
 // @desc    Get user's subscription
 // @route   GET /api/subscriptions/:id
 // @access  Private
@@ -140,5 +167,6 @@ module.exports = {
   renewSubscription,
   initializePayment,
   verifyPayment,
+  handlePaystackWebhook,
   getUserSubscription,
 };
