@@ -124,10 +124,35 @@ const verifyPayment = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc Handle Paystack webhook
+// @desc Handle Paystack webhook for subscriptions
 // @route POST /api/subscriptions/webhook
 // @access Public
-const handlePaystackWebhook = asyncHandler(async (req, res) => {
+const handleSubscriptionWebhook = asyncHandler(async (req, res) => {
+  const secret = process.env.PAYSTACK_SECRET_KEY;
+  const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
+
+  if (hash !== req.headers['x-paystack-signature']) {
+    return res.status(401).json({ message: "Unauthorized webhook request" });
+  }
+
+  const event = req.body;
+
+  if (event.event === "charge.success") {
+    try {
+      const { reference } = event.data;
+      await verifyPayment({ params: { reference } }, { json: console.log });
+    } catch (error) {
+      console.error("Error handling Paystack webhook:", error);
+    }
+  }
+
+  res.sendStatus(200);
+});
+
+// @desc Handle Paystack webhook for general payments
+// @route POST /api/paystack/webhook
+// @access Public
+const handleGeneralWebhook = asyncHandler(async (req, res) => {
   const secret = process.env.PAYSTACK_SECRET_KEY;
   const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
 
@@ -167,6 +192,7 @@ module.exports = {
   renewSubscription,
   initializePayment,
   verifyPayment,
-  handlePaystackWebhook,
+  handleSubscriptionWebhook,
+  handleGeneralWebhook,
   getUserSubscription,
 };
