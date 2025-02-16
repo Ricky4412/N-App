@@ -4,9 +4,9 @@ const crypto = require('crypto');
 const Subscription = require('../models/Subscription');
 const User = require('../models/User');
 
-// @desc    Create a new subscription
-// @route   POST /api/subscriptions
-// @access  Private
+// @desc Create a new subscription
+// @route POST /api/subscriptions
+// @access Private
 const createSubscription = asyncHandler(async (req, res) => {
   const { bookId, plan, price, duration, mobileNumber, serviceProvider, accountName } = req.body;
   const userId = req.user._id;
@@ -40,9 +40,9 @@ const createSubscription = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Renew a subscription
-// @route   PUT /api/subscriptions/renew
-// @access  Private
+// @desc Renew a subscription
+// @route PUT /api/subscriptions/renew
+// @access Private
 const renewSubscription = asyncHandler(async (req, res) => {
   const { subscriptionId } = req.body;
   const userId = req.user._id;
@@ -62,9 +62,9 @@ const renewSubscription = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Initialize Paystack payment
-// @route   POST /api/subscriptions/pay
-// @access  Private
+// @desc Initialize Paystack payment
+// @route POST /api/subscriptions/pay
+// @access Private
 const initializePayment = asyncHandler(async (req, res) => {
   const { email, amount, mobileNumber, serviceProvider, accountName } = req.body;
 
@@ -91,9 +91,9 @@ const initializePayment = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Verify Paystack payment
-// @route   GET /api/subscriptions/verify/:reference
-// @access  Private
+// @desc Verify Paystack payment
+// @route GET /api/subscriptions/verify/:reference
+// @access Private
 const verifyPayment = asyncHandler(async (req, res) => {
   const { reference } = req.params;
 
@@ -124,9 +124,9 @@ const verifyPayment = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Handle Paystack webhook
-// @route   POST /api/subscriptions/webhook
-// @access  Public
+// @desc Handle Paystack webhook
+// @route POST /api/subscriptions/webhook
+// @access Public
 const handlePaystackWebhook = asyncHandler(async (req, res) => {
   const secret = process.env.PAYSTACK_SECRET_KEY;
   const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
@@ -149,9 +149,9 @@ const handlePaystackWebhook = asyncHandler(async (req, res) => {
   res.sendStatus(200);
 });
 
-// @desc    Get user's subscription
-// @route   GET /api/subscriptions/:id
-// @access  Private
+// @desc Get user's subscription
+// @route GET /api/subscriptions/:id
+// @access Private
 const getUserSubscription = asyncHandler(async (req, res) => {
   const subscription = await Subscription.findById(req.params.id);
 
