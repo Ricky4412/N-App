@@ -69,25 +69,39 @@ const initializePayment = asyncHandler(async (req, res) => {
   const { email, amount, mobileNumber, serviceProvider, accountName } = req.body;
 
   try {
-    const response = await axios.post('https://api.paystack.co/transaction/initialize', {
-      email,
-      amount: amount * 100, // Convert amount to kobo
-      currency: 'GHS', // Set currency to Ghana Cedis
-      channels: ['mobile_money'], // Enable mobile money payments
-      metadata: {
-        mobileNumber,
-        serviceProvider,
-        accountName,
+    const response = await axios.post(
+      'https://api.paystack.co/transaction/initialize',
+      {
+        email,
+        amount: amount * 100, // Convert to kobo
+        currency: 'GHS',
+        channels: ['mobile_money'], // Enable MoMo payments
+        metadata: {
+          mobileNumber,
+          serviceProvider,
+          accountName,
+        },
       },
-    }, {
-      headers: {
-        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
-      },
-    });
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
-    res.json(response.data);
+    res.json({
+      success: true,
+      message: 'Payment request sent. Check your phone for the MoMo prompt.',
+      data: response.data,
+    });
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Payment initialization error', error: error.message });
+    console.error('❌ Payment Initialization Error:', error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Payment initialization error',
+      error: error.response?.data || error.message,
+    });
   }
 });
 
@@ -107,20 +121,35 @@ const verifyPayment = asyncHandler(async (req, res) => {
     const verificationData = response.data.data;
 
     if (verificationData.status === 'success') {
-      // Payment successful, update subscription status
       const subscription = await Subscription.findOne({ user: req.user._id, status: 'pending' });
+
       if (subscription) {
         subscription.status = 'active';
         subscription.paidAt = new Date();
         await subscription.save();
       }
 
-      res.json({ success: true, message: 'Payment verified successfully' });
+      return res.json({ success: true, message: 'Payment verified successfully' });
+    } else if (verificationData.status === 'abandoned') {
+      return res.status(400).json({
+        success: false,
+        message: 'Payment was not completed. User may have canceled or failed to enter PIN.',
+        data: verificationData,
+      });
     } else {
-      res.status(400).json({ success: false, message: 'Payment verification failed', data: verificationData });
+      return res.status(400).json({
+        success: false,
+        message: `Payment verification failed: ${verificationData.gateway_response}`,
+        data: verificationData,
+      });
     }
   } catch (error) {
-    res.status(500).json({ success: false, message: 'Payment verification error', error: error.message });
+    console.error('❌ Payment Verification Error:', error.response?.data || error.message);
+    res.status(500).json({
+      success: false,
+      message: 'Error verifying payment',
+      error: error.response?.data || error.message,
+    });
   }
 });
 
@@ -128,21 +157,30 @@ const verifyPayment = asyncHandler(async (req, res) => {
 // @route POST /api/subscriptions/webhook
 // @access Public
 const handleSubscriptionWebhook = asyncHandler(async (req, res) => {
-  const secret = process.env.PAYSTACK_SECRET_KEY;
+  const secret = process.env.PAYSTACK_WEBHOOK_SECRET || process.env.PAYSTACK_SECRET_KEY;
+  const signature = req.headers['x-paystack-signature'];
+
+  if (!signature) {
+    console.error("❌ No signature received from Paystack.");
+    return res.status(401).json({ message: "Unauthorized webhook request" });
+  }
+
   const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
 
-  if (hash !== req.headers['x-paystack-signature']) {
+  if (hash !== signature) {
+    console.error("❌ Invalid Paystack signature.");
     return res.status(401).json({ message: "Unauthorized webhook request" });
   }
 
   const event = req.body;
+  console.log(`✅ Webhook event received: ${event.event}`);
 
   if (event.event === "charge.success") {
     try {
       const { reference } = event.data;
       await verifyPayment({ params: { reference } }, { json: console.log });
     } catch (error) {
-      console.error("Error handling Paystack webhook:", error);
+      console.error("⚠️ Error handling Paystack webhook:", error);
     }
   }
 
@@ -153,21 +191,30 @@ const handleSubscriptionWebhook = asyncHandler(async (req, res) => {
 // @route POST /api/paystack/webhook
 // @access Public
 const handleGeneralWebhook = asyncHandler(async (req, res) => {
-  const secret = process.env.PAYSTACK_SECRET_KEY;
+  const secret = process.env.PAYSTACK_WEBHOOK_SECRET || process.env.PAYSTACK_SECRET_KEY;
+  const signature = req.headers['x-paystack-signature'];
+
+  if (!signature) {
+    console.error("❌ No signature received from Paystack.");
+    return res.status(401).json({ message: "Unauthorized webhook request" });
+  }
+
   const hash = crypto.createHmac('sha512', secret).update(JSON.stringify(req.body)).digest('hex');
 
-  if (hash !== req.headers['x-paystack-signature']) {
+  if (hash !== signature) {
+    console.error("❌ Invalid Paystack signature.");
     return res.status(401).json({ message: "Unauthorized webhook request" });
   }
 
   const event = req.body;
+  console.log(`✅ General webhook event received: ${event.event}`);
 
   if (event.event === "charge.success") {
     try {
       const { reference } = event.data;
       await verifyPayment({ params: { reference } }, { json: console.log });
     } catch (error) {
-      console.error("Error handling Paystack webhook:", error);
+      console.error("⚠️ Error handling Paystack webhook:", error);
     }
   }
 
