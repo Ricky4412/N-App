@@ -6,7 +6,7 @@ const {
   verifyPayment,
   handleSubscriptionWebhook,
   handleGeneralWebhook,
-  getUserSubscription,
+  getUserSubscriptionByBook,
 } = require('../controllers/subscriptionController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -16,7 +16,7 @@ const router = express.Router();
 router.use('/pay', protect);
 router.use('/renew', protect);
 router.use('/verify/:reference', protect);
-router.use('/:id', protect);
+router.use('/book/:bookId', protect);
 
 // Route to create a subscription
 router.post('/', protect, createSubscription);
@@ -39,7 +39,7 @@ router.post('/webhook', rawBodyParser, handleSubscriptionWebhook);
 // Route to handle Paystack webhook for general payments
 router.post('/paystack/webhook', rawBodyParser, handleGeneralWebhook);
 
-// Route to get user subscription by ID
-router.get('/:id', getUserSubscription);
+// Route to get user subscription by book ID
+router.get('/book/:bookId', getUserSubscriptionByBook);
 
 module.exports = router;
