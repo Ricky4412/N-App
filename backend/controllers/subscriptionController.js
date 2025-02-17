@@ -30,10 +30,6 @@ const createSubscription = asyncHandler(async (req, res) => {
   });
 
   if (subscription) {
-    const user = await User.findById(userId);
-    user.subscription = subscription._id;
-    await user.save();
-
     res.status(201).json(subscription);
   } else {
     res.status(400).json({ message: 'Invalid subscription data' });
