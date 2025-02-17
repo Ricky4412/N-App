@@ -218,10 +218,13 @@ const handleGeneralWebhook = asyncHandler(async (req, res) => {
 });
 
 // @desc Get user's subscription
-// @route GET /api/subscriptions/:id
+// @route GET /api/subscriptions/book/:bookId
 // @access Private
-const getUserSubscription = asyncHandler(async (req, res) => {
-  const subscription = await Subscription.findById(req.params.id);
+const getUserSubscriptionByBook = asyncHandler(async (req, res) => {
+  const { bookId } = req.params;
+  const userId = req.user._id;
+
+  const subscription = await Subscription.findOne({ user: userId, book: bookId, status: 'active' });
 
   if (subscription) {
     res.json(subscription);
@@ -237,5 +240,5 @@ module.exports = {
   verifyPayment,
   handleSubscriptionWebhook,
   handleGeneralWebhook,
-  getUserSubscription,
+  getUserSubscriptionByBook,
 };
