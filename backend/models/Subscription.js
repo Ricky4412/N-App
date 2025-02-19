@@ -12,15 +12,15 @@ const subscriptionSchema = new mongoose.Schema({
     required: true,
   },
   plan: { type: String, required: true },
-  price: { type: Number, required: true },
+  price: { type: Number, required: true }, // Price from Book schema
   duration: { type: Number, required: true },
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   mobileNumber: { type: String, required: true },
   serviceProvider: { type: String, required: true },
   accountName: { type: String, required: true },
-  status: { type: String, default: 'pending' }, // Add status field
-  paidAt: { type: Date }, // Add paidAt field
+  status: { type: String, default: 'pending' },
+  paidAt: { type: Date },
 });
 
 const Subscription = mongoose.model('Subscription', subscriptionSchema);
