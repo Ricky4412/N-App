@@ -7,7 +7,7 @@ const bookSchema = new mongoose.Schema({
   rating: { type: Number, default: 4.7 },
   coverImage: { type: String, required: true },
   htmlUrl: { type: String, required: true },
-  price: { type: Number, required: true },
+  price: { type: Number, required: true }, // Price for subscription
 });
 
 const Book = mongoose.model('Book', bookSchema);
