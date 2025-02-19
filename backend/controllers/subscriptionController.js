@@ -217,7 +217,7 @@ const handleGeneralWebhook = asyncHandler(async (req, res) => {
   res.sendStatus(200);
 });
 
-// @desc Get user's subscription
+// @desc Get user's subscription by book ID
 // @route GET /api/subscriptions/book/:bookId
 // @access Private
 const getUserSubscriptionByBook = asyncHandler(async (req, res) => {
